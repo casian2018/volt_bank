@@ -19,7 +19,7 @@ export default async function handler(req, res) {
 
   try {
     const client = await clientPromise;
-    const db = client.db('learn');
+    const db = client.db('volt_bank');
     const users = db.collection('users');
 
     const user = await users.findOne({ email });
