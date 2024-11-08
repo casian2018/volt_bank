@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     return res.status(405).end('Method Not Allowed');
   }
 
-  const { email, password, age, adress, firstName, lastName } = req.body;
+  const { email, password, age, address, firstName, lastName } = req.body;
 
   const client = await clientPromise;
   const db = client.db('volt_bank');
@@ -30,7 +30,7 @@ export default async function handler(req, res) {
     age,
     address, 
     firstName, 
-    lastName
+    lastName,
   });
 
   res.status(201).json({ message: 'User registered successfully' });

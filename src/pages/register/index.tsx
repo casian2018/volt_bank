@@ -68,19 +68,104 @@ export default function RegisterPage() {
             <h1 className="text-gray-800 font-bold text-2xl mb-1">Welcome to Volt Bank!</h1>
             <p className="text-sm font-normal text-gray-600 mb-8">Create an account</p>
 
-            {["firstName", "lastName", "email", "password", "phone", "address", "city", "country"].map((field) => (
-              <div className="flex items-center border-2 mb-8 py-2 px-3 rounded-2xl" key={field}>
-                <input
-                  className="pl-2 w-full outline-none border-none"
-                  type={field === "password" ? "password" : "text"}
-                  name={field}
-                  placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
-                  value={formData[field as keyof typeof formData]}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-            ))}
+            <div className="flex items-center border-2 mb-8 py-2 px-3 rounded-2xl">
+              <input
+                className="pl-2 w-full outline-none border-none"
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="flex items-center border-2 mb-8 py-2 px-3 rounded-2xl">
+              <input
+                className="pl-2 w-full outline-none border-none"
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="flex items-center border-2 mb-8 py-2 px-3 rounded-2xl">
+              <input
+                className="pl-2 w-full outline-none border-none"
+                type="text"
+                name="firstName"
+                placeholder="First Name"
+                value={formData.firstName}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="flex items-center border-2 mb-8 py-2 px-3 rounded-2xl">
+              <input
+                className="pl-2 w-full outline-none border-none"
+                type="text"
+                name="lastName"
+                placeholder="Last Name"
+                value={formData.lastName}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="flex items-center border-2 mb-8 py-2 px-3 rounded-2xl">
+              <input
+                className="pl-2 w-full outline-none border-none"
+                type="text"
+                name="address"
+                placeholder="Address"
+                value={formData.address}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="flex items-center border-2 mb-8 py-2 px-3 rounded-2xl">
+              <input
+                className="pl-2 w-full outline-none border-none"
+                type="text"
+                name="city"
+                placeholder="City"
+                value={formData.city}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="flex items-center border-2 mb-8 py-2 px-3 rounded-2xl">
+              <input
+                className="pl-2 w-full outline-none border-none"
+                type="text"
+                name="country"
+                placeholder="Country"
+                value={formData.country}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="flex items-center border-2 mb-8 py-2 px-3 rounded-2xl">
+              <input
+                className="pl-2 w-full outline-none border-none"
+                type="tel"
+                name="phone"
+                placeholder="Phone"
+                value={formData.phone}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            
+            
 
             <div className="flex items-center border-2 mb-8 py-2 px-3 rounded-2xl">
               <input
