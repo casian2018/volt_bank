@@ -4,7 +4,7 @@ import AssetBalance from '@/components/AssetBalance';
 
 const App: React.FC = () => {
   const cryptoBalances = {
-    bitcoin: 0.5,
+    bitcoin: 0.7,
     ethereum: 2.0,
     litecoin: 10.0,
     ripple: 1000.0
