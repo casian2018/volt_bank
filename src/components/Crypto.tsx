@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Chart from './Chart';
-import CryptoPieChart from './CryptoPieChart';
+import PieChart from './PieChart';
 
 interface CryptoPrices {
     [key: string]: number; 
@@ -51,7 +51,7 @@ const Crypto = () => {
 
             <div className="mt-6 bg-white p-6 shadow-lg rounded-xl w-fit mb-8">
                 <h2 className="text-2xl font-semibold text-gray-800 mb-4">Portfolio Allocation</h2>
-                <CryptoPieChart />
+                <PieChart />
             </div>
             </div>
 
@@ -67,13 +67,13 @@ const Crypto = () => {
                         {['BTCUSD', 'ETHUSD', 'LTCUSD', 'XRPUSD'].map((symbol) => (
                             <div
                                 key={symbol}
-                                className="flex items-center justify-between bg-gray-100 p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200"
+                                onClick={() => setSelectedSymbol(symbol)}
+                                className={`flex items-center justify-between bg-gray-100 p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer `}
                             >
-                                <p className="text-gray-700 font-medium">
-                                    {symbol} Chart
+                                <p className="text-gray-700 font-medium ">
+                                    View {symbol} Chart
                                 </p>
                                 <button
-                                    onClick={() => setSelectedSymbol(symbol)}
                                     className={`px-4 py-2 rounded-lg font-semibold text-sm ${
                                         selectedSymbol === symbol
                                             ? 'bg-indigo-600 text-white'

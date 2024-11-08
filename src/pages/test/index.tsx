@@ -1,13 +1,11 @@
-import Chart from "@/components/Chart";
-import Crypto from "@/components/Crypto";
+
+import Forex from "@/components/Forex";
 import React from 'react'
 
 
 const index = () => {
   return (
-    <div>
-    <Crypto/>
-    </div>
+    <Forex/>
   )
 }
 export default index
