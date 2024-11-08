@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from 'react';
 
 export default function Nav() {
@@ -7,6 +6,8 @@ export default function Nav() {
     const [isTransactionsOpen, setTransactionsOpen] = useState(false);
 
     return (
+
+        <>
         <nav className="p-4 md:py-8 xl:px-0 md:container md:max-w-6xl md:mx-auto">
             <div className="hidden lg:flex lg:justify-between lg:items-center">
                 <a href="#" className="flex items-start gap-2 group">
@@ -84,5 +85,41 @@ export default function Nav() {
                 )}
             </div>
         </nav>
+        
+
+   <div className='flex items-center justify-center mt-24 mb-36'>
+
+        <div className='flex items-center gap-44'>
+
+            <div>
+          <h1 className='text-4xl mb-3 font-bold font-serif'>Welcome to VoltBank !</h1>
+           <h2 className='text-xl'>An innovative, built banking system to meet one's  <br/> needs fast financial environment and in <br></br> continuous change everywhere.</h2>
+           </div>
+
+           <img src='imgbani.webp' className='w-[350px] rounded-lg h-[300px]'/>
+
+        </div>
+
+        </div>
+
+
+
+    
+        <div  className='flex items-center justify-center gap-16 mb-32'>
+        <img src='imgbani.webp' className='w-[340px] rounded-lg h-[300px]'/>
+
+            <h1 className='text-lg font-medium'>Whether you're a seasoned crypto investor or a newcomer to the world of <br/> digital currencies, VoltBank offers the tools and resources you need to <br/> trade, exchange, and grow your wealth.With advanced market insights, <br/> real-time analytics, and personalized trading tactics,we empower you <br/> to make informed decisions and maximize your potential <br/> in crypto market.</h1>
+        </div>
+
+        
+        <div  className='flex items-center justify-center gap-16 mb-24'>
+            <h1 className='text-lg font-medium'>At VoltBank, we prioritize your financial success by providing a secure <br/> platform tailored to your needs. Our intuitive interface, combined with <br/> robust risk management tools and 24/7 customer support, ensures a <br/> seamless trading experience. Stay ahead with cutting-edge analytics, <br/> exclusive market updates, and insights crafted to help you make <br/> confident, data-driven choices. Unlock new possibilities in both <br/> crypto and forex with VoltBank’s reliable and innovative <br/> financial solutions.</h1>
+            <img src='imgbani.webp' className='w-[340px] rounded-lg h-[300px]'/>
+
+        </div>
+
+        </>
     );
+
+   
 }
