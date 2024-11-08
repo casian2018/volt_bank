@@ -8,7 +8,7 @@ const App: React.FC = () => {
 
   return (
     <div>
-        <Forex  />
+        <Crypto />
     </div>
   );
 };
