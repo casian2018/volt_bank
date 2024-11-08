@@ -4,7 +4,11 @@ interface CryptoPrices {
   [key: string]: number;
 }
 
-export default async function handler(req: any, res: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: CryptoPrices): void; new(): any; }; }; }) {
+interface ErrorResponse {
+  message: string;
+}
+
+export default async function handler(req: any, res: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: CryptoPrices | ErrorResponse): void; new(): any; }; }; }) {
   try {
     // Fetch prices from CoinGecko API using the native fetch
     const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,litecoin,ripple&vs_currencies=usd');
