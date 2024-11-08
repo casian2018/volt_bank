@@ -2,53 +2,18 @@
 import React, { useEffect, useState } from 'react';
 import Chart from './Chart';
 import CryptoPieChart from './PieChart';
-
-
-interface ForexRates {
-    [key: string]: number; 
-}
+import AssetBalance from './AssetBalance';
 
 const Forex = () => {
     const [selectedPair, setSelectedPair] = useState('EURUSD');
-    const [forexRates, setForexRates] = useState<ForexRates>({});
-    const [portfolio] = useState({ EUR: 1000, GBP: 2000 }); 
-
-    const fetchForexRates = async () => {
-        try {
-            const rates = await fetch('/api/getForexPrices').then(res => res.json());
-            setForexRates(rates);
-        } catch (error) {
-            console.error('Error fetching forex rates:', error);
-        }
-    };
-
-    useEffect(() => {
-        fetchForexRates();
-    }, []);
-
-    const totalBalance = Object.entries(portfolio).reduce((acc, [currency, amount]) => {
-        const rate = forexRates[`${currency}USD`] || 1;
-        return acc + rate * amount;
-    }, 0);
+    const forexBalances = { EUR: 1000, USD: 1500, GBP: 2000, JPY: 500, };
 
     return (
         <div className="p-6 bg-gradient-to-b from-gray-50 to-gray-200 min-h-screen">
             <div className='flex gap-12'>
                 <div className="mb-8 bg-white p-6 shadow-lg rounded-xl mt-6 w-full">
                     <h2 className="text-xl font-semibold text-gray-800">Total Balance</h2>
-                    <p className="text-3xl font-bold text-indigo-600 mt-2">
-                        ${totalBalance.toFixed(2)}
-                    </p>
-                    <p className="text-gray-500 mt-2">
-                        {Object.keys(portfolio).length} Currencies in Portfolio
-                    </p>
-                    <p className="text-gray-500"> 
-                        {Object.entries(portfolio).map(([currency, amount]) => (
-                            <span key={currency} className="text-gray-500">
-                                {currency}: {amount} <br />
-                            </span>
-                        ))}
-                    </p>
+                    <AssetBalance forexBalances={forexBalances}/>
                 </div>
 
                 <div className="mt-6 bg-white p-6 shadow-lg rounded-xl w-fit mb-8">

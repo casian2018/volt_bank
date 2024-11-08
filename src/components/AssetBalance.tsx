@@ -1,4 +1,4 @@
-// components/AssetBalance.tsx
+
 import React, { useState, useEffect } from 'react';
 
 interface AssetBalanceProps {
@@ -41,7 +41,7 @@ const AssetBalance: React.FC<AssetBalanceProps> = ({ cryptoBalances = {}, forexB
           const response = await fetch(`https://api.exchangerate-api.com/v4/latest/USD`);
           const data = await response.json();
           const price = data.rates[forex.toUpperCase()] || 0;
-          const usdValue = balance * price;
+          const usdValue = balance / price;
           updatedUsdBalances[forex] = usdValue;
           total += usdValue;
         } catch (error) {
