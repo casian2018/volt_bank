@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.login_img_section{
+  background-color: #6001a9c9;
+}
