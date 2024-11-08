@@ -2,12 +2,12 @@
 import React, { useState, useEffect } from 'react';
 
 interface AssetBalanceProps {
-  cryptoBalances: { [key: string]: number };
-  forexBalances: { [key: string]: number };
-  stockBalances: { [key: string]: number };
+    cryptoBalances?: { [key: string]: number };
+    forexBalances?: { [key: string]: number };
+    stockBalances?: { [key: string]: number };
 }
 
-const AssetBalance: React.FC<AssetBalanceProps> = ({ cryptoBalances, forexBalances, stockBalances }) => {
+const AssetBalance: React.FC<AssetBalanceProps> = ({ cryptoBalances = {}, forexBalances = {}, stockBalances = {} }) => {
   const [usdBalances, setUsdBalances] = useState<{ [key: string]: number }>({});
   const [totalUsd, setTotalUsd] = useState<number>(0);
 

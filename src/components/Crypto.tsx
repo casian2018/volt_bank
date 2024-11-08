@@ -1,64 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import Chart from './Chart';
 import PieChart from './PieChart';
+import AssetBalance from './AssetBalance';
 
-interface CryptoPrices {
-    [key: string]: number; 
-}
+
 
 const Crypto = () => {
     const [selectedSymbol, setSelectedSymbol] = useState('BTCUSD');
-    const [cryptoPrices, setCryptoPrices] = useState<CryptoPrices>({});
-    const [portfolio, setPortfolio] = useState<{ [key: string]: number }>({}); 
-
-    // Fetch crypto prices from an API
-    const fetchCryptoPrices = async () => {
-        try {
-            const prices = await fetch('/api/getCryptoPrices').then(res => res.json());
-            setCryptoPrices(prices);
-        } catch (error) {
-            console.error('Error fetching crypto prices:', error);
-        }
-    };
-
-    // Fetch user's portfolio from the database
-    const fetchUserPortfolio = async () => {
-        try {
-            const userPortfolio = await fetch('/api/getUserPortfolio').then(res => res.json());
-            setPortfolio(userPortfolio);
-        } catch (error) {
-            console.error('Error fetching user portfolio:', error);
-        }
-    };
-
-    useEffect(() => {
-        fetchCryptoPrices();
-        fetchUserPortfolio();
-    }, []);
-
-    const totalBalance = Object.entries(portfolio).reduce((acc, [crypto, amount]) => {
-        const price = cryptoPrices[`${crypto}USD`] || 0;
-        return acc + price * amount;
-    }, 0);
+    
+    const cryptoBalances = {
+        bitcoin: 0.7,
+        ethereum: 2.0,
+        litecoin: 10.0,
+        ripple: 1000.0
+        };
+    
 
     return (
         <div className="p-6 bg-gradient-to-b from-gray-50 to-gray-200 min-h-screen">
             <div className=' flex gap-12 '>
             <div className="mb-8 bg-white p-6 shadow-lg rounded-xl mt-6 w-full">
                 <h2 className="text-xl font-semibold text-gray-800">Total Balance</h2>
-                <p className="text-3xl font-bold text-indigo-600 mt-2">
-                    ${totalBalance.toFixed(2)}
-                </p>
-                <p className="text-gray-500 mt-2">
-                    {Object.keys(portfolio).length} Cryptocurrencies in Portfolio
-                </p>
-                <p className="text-gray-500"> 
-                    {Object.entries(portfolio).map(([crypto, amount]) => (
-                        <span key={crypto} className="text-gray-500">
-                            {crypto}: {amount} <br />
-                        </span>
-                    ))}
-                </p>
+                <AssetBalance cryptoBalances={cryptoBalances} />
+                
             </div>
 
             <div className="mt-6 bg-white p-6 shadow-lg rounded-xl w-fit mb-8">
