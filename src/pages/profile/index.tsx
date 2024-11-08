@@ -2,29 +2,52 @@
 
 import { useEffect, useState } from 'react';
 
+interface User {
+  firstName: string;
+  lastName: string;
+  email: string;
+  address: string;
+  age: number;
+  balance: number;
+  savings: number;
+}
+
 export default function ProfilePage() {
-  interface User {
-    firstName: string;
-    balance: number;
-  }
-
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // Fetch user data from API on component mount
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const res = await fetch('/api/userProfile');
-        const data = await res.json();
-        
-        if (res.ok) {
-          setUser(data);
+        // Fetch the email from email.txt via the getEmail API
+        const emailResponse = await fetch('/api/getEmail');
+        if (!emailResponse.ok) {
+          throw new Error('Could not retrieve email');
+        }
+        const emailData = await emailResponse.text(); // Expecting plain text
+
+        if (!emailData) {
+          throw new Error('Email not found in the file');
+        }
+
+        // Use the fetched email to get the user data
+        const response = await fetch(`/api/getUser?email=${emailData.trim()}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.user) {
+          setUser(data.user);
         } else {
-          console.error(data.message);
+          throw new Error('User not found');
         }
       } catch (error) {
-        console.error('Error fetching user data:', error);
+        setError(error instanceof Error ? error.message : 'An error occurred');
       } finally {
         setLoading(false);
       }
@@ -33,12 +56,9 @@ export default function ProfilePage() {
     fetchUserData();
   }, []);
 
-  // Loading state
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p className="text-red-500">{error}</p>;
 
-  // Display user data
   return (
     <main className="container mx-w-6xl mx-auto py-4">
       <div className="flex flex-col space-y-8">
@@ -58,16 +78,11 @@ export default function ProfilePage() {
                   <h2 className="text-gray-800 font-bold tracking-widest leading-tight">{user?.firstName}'s Savings Account</h2>
                   <div className="flex items-center gap-4">
                     <p className="text-lg text-gray-600 tracking-wider">**** **** *321</p>
-                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none"
-                      viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
                   </div>
                 </div>
                 <h2 className="text-lg md:text-xl xl:text-3xl text-gray-700 font-black tracking-wider">
                   <span className="md:text-xl">$</span>
-                  {user ? user.balance.toFixed(2) : '0.00'}
+                  {user?.balance.toFixed(2)}
                 </h2>
               </div>
               <div className="flex gap-2 md:gap-4">
@@ -82,27 +97,7 @@ export default function ProfilePage() {
               </div>
             </div>
           </div>
-          <div className="col-span-2 p-6 rounded-2xl bg-gradient-to-r from-blue-500 to-blue-800 flex flex-col justify-between">
-            <div className="flex flex-col">
-              <p className="text-white font-bold">Lorem ipsum dolor sit amet</p>
-              <p className="mt-1 text-xs md:text-sm text-gray-50 font-light leading-tight max-w-sm">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio soluta saepe consequuntur
-                facilis ab a. Molestiae ad saepe assumenda praesentium rem dolore? Exercitationem, neque
-                obcaecati?
-              </p>
-            </div>
-            <div className="flex justify-between items-end">
-              <a href="#"
-                className="bg-blue-800 px-4 py-3 rounded-lg text-white text-xs tracking-wider font-semibold hover:bg-blue-600 hover:text-white">
-                Learn More
-              </a>
-              <img src="https://atom.dzulfarizan.com/assets/calendar.png" alt="calendar" className="w-auto h-24 object-cover" />
-            </div>
-          </div>
         </div>
-
-        {/* Display other sections similar to the above example */}
-        
       </div>
     </main>
   );

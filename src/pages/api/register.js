@@ -25,7 +25,7 @@ export default async function handler(req, res) {
   await users.insertOne({
     email,
     password: hashedPassword,
-    balance: 0, 
+    balance:  Double(0), 
     savings: 0, 
     age,
     address, 
