@@ -9,8 +9,9 @@ interface CryptoPrices {
 const Crypto = () => {
     const [selectedSymbol, setSelectedSymbol] = useState('BTCUSD');
     const [cryptoPrices, setCryptoPrices] = useState<CryptoPrices>({});
-    const [portfolio, setPortfolio] = useState({ BTC: 1, ETH: 2 }); 
+    const [portfolio, setPortfolio] = useState<{ [key: string]: number }>({}); 
 
+    // Fetch crypto prices from an API
     const fetchCryptoPrices = async () => {
         try {
             const prices = await fetch('/api/getCryptoPrices').then(res => res.json());
@@ -20,8 +21,19 @@ const Crypto = () => {
         }
     };
 
+    // Fetch user's portfolio from the database
+    const fetchUserPortfolio = async () => {
+        try {
+            const userPortfolio = await fetch('/api/getUserPortfolio').then(res => res.json());
+            setPortfolio(userPortfolio);
+        } catch (error) {
+            console.error('Error fetching user portfolio:', error);
+        }
+    };
+
     useEffect(() => {
         fetchCryptoPrices();
+        fetchUserPortfolio();
     }, []);
 
     const totalBalance = Object.entries(portfolio).reduce((acc, [crypto, amount]) => {
@@ -55,6 +67,7 @@ const Crypto = () => {
             </div>
             </div>
 
+            {/* Chart and Crypto Selector */}
             <div className="flex flex-col lg:flex-row gap-6">
                 <div className="flex flex-col w-full lg:w-2/3 bg-white p-6 shadow-lg rounded-xl">
                     <h2 className="text-2xl font-semibold text-gray-800 mb-4">Market Chart</h2>

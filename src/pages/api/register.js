@@ -68,12 +68,6 @@ export default async function handler(req, res) {
     },
     transactions: { cash: [], crypto: [] }
   });
-
-
-    
-
-      
-
-
+  
   res.status(201).json({ message: 'User registered successfully' });
 }
