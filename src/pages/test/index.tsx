@@ -1,11 +1,12 @@
 
 import Forex from "@/components/Forex";
+import Stocks from "@/components/Stocks";
 import React from 'react'
 
 
 const index = () => {
   return (
-    <Forex/>
+    <Stocks/>
   )
 }
 export default index

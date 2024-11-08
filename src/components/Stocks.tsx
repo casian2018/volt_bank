@@ -1,34 +1,32 @@
-
 import React, { useEffect, useState } from 'react';
 import Chart from './Chart';
-import CryptoPieChart from './PieChart';
+import PieChart from './PieChart';
 
-
-interface ForexRates {
+interface StockPrices {
     [key: string]: number; 
 }
 
-const Forex = () => {
-    const [selectedPair, setSelectedPair] = useState('EURUSD');
-    const [forexRates, setForexRates] = useState<ForexRates>({});
-    const [portfolio] = useState({ EUR: 1000, GBP: 2000 }); 
+const Stocks = () => {
+    const [selectedStock, setSelectedStock] = useState('AAPL');
+    const [stockPrices, setStockPrices] = useState<StockPrices>({});
+    const [portfolio] = useState({ AAPL: 10, MSFT: 5 }); 
 
-    const fetchForexRates = async () => {
+    const fetchStockPrices = async () => {
         try {
-            const rates = await fetch('/api/getForexPrices').then(res => res.json());
-            setForexRates(rates);
+            const prices = await fetch('/api/getStockPrices').then(res => res.json());
+            setStockPrices(prices);
         } catch (error) {
-            console.error('Error fetching forex rates:', error);
+            console.error('Error fetching stock prices:', error);
         }
     };
 
     useEffect(() => {
-        fetchForexRates();
+        fetchStockPrices();
     }, []);
 
-    const totalBalance = Object.entries(portfolio).reduce((acc, [currency, amount]) => {
-        const rate = forexRates[`${currency}USD`] || 1;
-        return acc + rate * amount;
+    const totalBalance = Object.entries(portfolio).reduce((acc, [stock, shares]) => {
+        const price = stockPrices[stock] || 0;
+        return acc + price * shares;
     }, 0);
 
     return (
@@ -40,12 +38,12 @@ const Forex = () => {
                         ${totalBalance.toFixed(2)}
                     </p>
                     <p className="text-gray-500 mt-2">
-                        {Object.keys(portfolio).length} Currencies in Portfolio
+                        {Object.keys(portfolio).length} Stocks in Portfolio
                     </p>
                     <p className="text-gray-500"> 
-                        {Object.entries(portfolio).map(([currency, amount]) => (
-                            <span key={currency} className="text-gray-500">
-                                {currency}: {amount} <br />
+                        {Object.entries(portfolio).map(([stock, shares]) => (
+                            <span key={stock} className="text-gray-500">
+                                {stock}: {shares} shares <br />
                             </span>
                         ))}
                     </p>
@@ -53,36 +51,36 @@ const Forex = () => {
 
                 <div className="mt-6 bg-white p-6 shadow-lg rounded-xl w-fit mb-8">
                     <h2 className="text-2xl font-semibold text-gray-800 mb-4">Portfolio Allocation</h2>
-                    <CryptoPieChart />
+                    <PieChart />
                 </div>
             </div>
 
             <div className="flex flex-col lg:flex-row gap-6">
                 <div className="flex flex-col w-full lg:w-2/3 bg-white p-6 shadow-lg rounded-xl">
                     <h2 className="text-2xl font-semibold text-gray-800 mb-4">Market Chart</h2>
-                    <Chart symbol={selectedPair} />
+                    <Chart symbol={selectedStock} />
                 </div>
 
                 <div className="flex flex-col w-full lg:w-1/3 bg-white p-6 shadow-lg rounded-xl">
-                    <h2 className="text-xl font-semibold text-gray-800 mb-4">Select Currency Pair</h2>
+                    <h2 className="text-xl font-semibold text-gray-800 mb-4">Select Stock</h2>
                     <div className="space-y-3">
-                        {['EURUSD', 'GBPUSD', 'USDJPY', 'AUDUSD'].map((pair) => (
+                        {['AAPL', 'MSFT', 'GOOGL', 'AMZN'].map((stock) => (
                             <div
-                                key={pair}
-                                onClick={() => setSelectedPair(pair)}
+                                key={stock}
+                                onClick={() => setSelectedStock(stock)}
                                 className={`flex items-center justify-between bg-gray-100 p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer `}
                             >
                                 <p className="text-gray-700 font-medium ">
-                                    View {pair} Chart
+                                    View {stock} Chart
                                 </p>
                                 <button
                                     className={`px-4 py-2 rounded-lg font-semibold text-sm ${
-                                        selectedPair === pair
+                                        selectedStock === stock
                                             ? 'bg-indigo-600 text-white'
                                             : 'bg-indigo-50 text-indigo-600 border border-indigo-500 hover:bg-indigo-100'
                                     } transition duration-150`}
                                 >
-                                    {pair}
+                                    {stock}
                                 </button>
                             </div>
                         ))}
@@ -93,4 +91,4 @@ const Forex = () => {
     );
 }
 
-export default Forex;
+export default Stocks;
