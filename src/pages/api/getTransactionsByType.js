@@ -10,20 +10,26 @@ async function getTransactionsByType(req, res) {
     const client = await clientPromise;
     const db = client.db('volt_bank');
     
-    // Group transactions by type and calculate the total for each category
+    // Group transactions by type, calculate the total for each category, and sort by total
     const aggregationPipeline = [
       { $unwind: '$transactions.cash' },
-      { $group: {
-        _id: '$transactions.cash.type',
-        total: { $sum: { $toDouble: '$transactions.cash.price' } },
-        lastTransaction: { $max: '$transactions.cash.date' },
-      }},
-      { $project: {
-        type: '$_id',
-        total: 1,
-        lastTransaction: 1,
-        _id: 0,
-      }}
+      {
+        $group: {
+          _id: '$transactions.cash.type',
+          total: { $sum: { $toDouble: '$transactions.cash.price' } },
+          lastTransaction: { $max: '$transactions.cash.date' },
+        }
+      },
+      {
+        $project: {
+          type: '$_id',
+          total: 1,
+          lastTransaction: 1,
+          _id: 0,
+        }
+      },
+      // Sort categories by 'total' in descending order
+      { $sort: { total: -1 } }
     ];
     
     const result = await db.collection('users').aggregate(aggregationPipeline).toArray();
