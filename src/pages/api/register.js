@@ -1,9 +1,27 @@
+import { Transaction } from 'mongodb';
 import clientPromise from '../../pages/api/mongodb';
 import bcrypt from 'bcryptjs';
 
 
 
 export default async function handler(req, res) {
+  
+  let number = '4';
+      for (let i = 1; i < 16; i++) {
+        number += Math.floor(Math.random() * 10);
+      }
+      
+      let cvv = '';
+      for (let j = 0; j < 3; j++) { 
+        cvv += Math.floor(Math.random() * 10);
+      }
+       
+      let pin = '';
+      for(let h=0; h<4; h++)
+      {
+        pin+=Math.floor(Math.random() * 10)
+      }
+
   if (req.method !== 'POST') {
     return res.status(405).end('Method Not Allowed');
   }
@@ -44,11 +62,18 @@ export default async function handler(req, res) {
     city,
     country,
     cardInfo: {
-      cardNumber,    // Add card number to the database
-      cvvNumber,     // Add CVV to the database
-      pinNumber,     // Add pin to the database
+      number,   
+      cvv,     
+      pin,     
     },
+    transactions: { cash: [], crypto: [] }
   });
+
+
+    
+
+      
+
 
   res.status(201).json({ message: 'User registered successfully' });
 }
