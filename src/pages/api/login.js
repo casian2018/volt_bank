@@ -1,8 +1,6 @@
 import clientPromise from '../../pages/api/mongodb';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import fs from 'fs';
-import path from 'path';
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
@@ -36,12 +34,13 @@ export default async function handler(req, res) {
       throw new Error("JWT_SECRET is not defined in the environment variables");
     }
 
+    // Generate the JWT token
     const token = jwt.sign({ email: user.email }, JWT_SECRET, { expiresIn: '1h' });
+
+    // Store the token in a cookie (httpOnly for security)
     res.setHeader('Set-Cookie', `token=${token}; HttpOnly; Path=/; Max-Age=3600; Secure; SameSite=Strict`);
 
-    const filePath = path.join(process.cwd(), 'email.txt');
-    fs.writeFileSync(filePath, email, { encoding: 'utf-8' });
-
+    // Respond with the token
     res.status(200).json({ token });
 
   } catch (error) {

@@ -1,36 +1,27 @@
 import { MongoClient } from 'mongodb';
 import clientPromise from './mongodb';
-import jwt from 'jsonwebtoken'; // You can use the 'jsonwebtoken' package to decode JWT tokens
+import jwt from 'jsonwebtoken';
+
+const JWT_SECRET = process.env.JWT_SECRET;
 
 async function getUser(req, res) {
   if (req.method !== 'GET') {
     return res.status(405).json({ message: 'Method Not Allowed' });
   }
 
-  let email;
-
-  // Extract the JWT token from the Authorization header
-  const token = req.headers['authorization']?.split(' ')[1]; // assuming the token is in the format "Bearer <token>"
+  // Get the token from cookies
+  const token = req.cookies.token;
 
   if (!token) {
-    return res.status(400).json({ message: 'Token missing or invalid' });
+    return res.status(401).json({ message: 'Unauthorized' });
   }
 
   try {
-    // Decode the JWT token to extract user data (like email)
-    const decoded = jwt.verify(token, process.env.JWT_SECRET); // Use your JWT secret here
-    email = decoded.email; // Assuming the JWT contains an 'email' field
+    // Verify the token and extract email from it
+    const decoded = jwt.verify(token, JWT_SECRET);
+    const email = decoded.email;
 
-    if (!email) {
-      return res.status(400).json({ message: 'Email not found in token' });
-    }
-  } catch (error) {
-    console.error('Error decoding token:', error);
-    return res.status(500).json({ message: 'Error decoding token' });
-  }
-
-  try {
-    // Fetch the user from the MongoDB database using the email extracted from the token
+    // Fetch user from the database
     const client = await clientPromise;
     const db = client.db('volt_bank');
     const user = await db.collection('users').findOne({ email });
