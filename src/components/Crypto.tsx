@@ -1,60 +1,49 @@
 import React, { useEffect, useState } from 'react';
 import Chart from './Chart';
-import CryptoPieChart from './CryptoPieChart';
-
-interface CryptoPrices {
-    [key: string]: number; 
-}
+import PieChart from './PieChart';
 
 const Crypto = () => {
-    const [selectedSymbol, setSelectedSymbol] = useState('BTCUSD');
-    const [cryptoPrices, setCryptoPrices] = useState<CryptoPrices>({});
-    const [portfolio, setPortfolio] = useState({ BTC: 1, ETH: 2 }); 
-
-    const fetchCryptoPrices = async () => {
-        try {
-            const prices = await fetch('/api/getCryptoPrices').then(res => res.json());
-            setCryptoPrices(prices);
-        } catch (error) {
-            console.error('Error fetching crypto prices:', error);
-        }
+    const [selectedSymbol, setSelectedSymbol] = useState('BTCUSDT');
+    const [total, setTotal] = useState(0);
+    const cryptoBalances = {
+        BTCUSDT: 0.7,
     };
 
     useEffect(() => {
-        fetchCryptoPrices();
-    }, []);
+        const fetchPrice = async () => {
+            try {
+                const Symbol = selectedSymbol; // Extract the symbol part (e.g., BTC from BTCUSD)
+                const response = await fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${Symbol}`);
+                const data = await response.json();
+                const price = parseFloat(data.price);
+                const balance = (cryptoBalances as any)[Symbol] || 0;
+                setTotal(price * balance);
+            } catch (error) {
+                console.error('Error fetching price:', error);
+            }
+        };
 
-    const totalBalance = Object.entries(portfolio).reduce((acc, [crypto, amount]) => {
-        const price = cryptoPrices[`${crypto}USD`] || 0;
-        return acc + price * amount;
-    }, 0);
+        fetchPrice();
+    }, [selectedSymbol]);
 
     return (
         <div className="p-6 bg-gradient-to-b from-gray-50 to-gray-200 min-h-screen">
-            <div className=' flex gap-12 '>
-            <div className="mb-8 bg-white p-6 shadow-lg rounded-xl mt-6 w-full">
-                <h2 className="text-xl font-semibold text-gray-800">Total Balance</h2>
-                <p className="text-3xl font-bold text-indigo-600 mt-2">
-                    ${totalBalance.toFixed(2)}
-                </p>
-                <p className="text-gray-500 mt-2">
-                    {Object.keys(portfolio).length} Cryptocurrencies in Portfolio
-                </p>
-                <p className="text-gray-500"> 
-                    {Object.entries(portfolio).map(([crypto, amount]) => (
-                        <span key={crypto} className="text-gray-500">
-                            {crypto}: {amount} <br />
-                        </span>
-                    ))}
-                </p>
+            <div className='flex gap-12'>
+                <div className='w-1/2'>
+                    <div className="bg-white p-6 shadow-lg rounded-xl">
+                        <h2 className="text-2xl font-semibold text-gray-800 mb-4">Asset Allocation</h2>
+                        <PieChart />
+                    </div>
+                </div>
+                <div className='w-1/2'>
+                    <div className="bg-white p-6 shadow-lg rounded-xl">
+                        <h2 className="text-2xl font-semibold text-gray-800 mb-4">Asset Balance</h2>
+                        <p className="text-gray-600 text-sm mb-4">Your current balance is ${total.toFixed(2)}</p>
+                    </div>
+                </div>
             </div>
 
-            <div className="mt-6 bg-white p-6 shadow-lg rounded-xl w-fit mb-8">
-                <h2 className="text-2xl font-semibold text-gray-800 mb-4">Portfolio Allocation</h2>
-                <CryptoPieChart />
-            </div>
-            </div>
-
+            {/* Chart and Crypto Selector */}
             <div className="flex flex-col lg:flex-row gap-6">
                 <div className="flex flex-col w-full lg:w-2/3 bg-white p-6 shadow-lg rounded-xl">
                     <h2 className="text-2xl font-semibold text-gray-800 mb-4">Market Chart</h2>
@@ -67,13 +56,13 @@ const Crypto = () => {
                         {['BTCUSD', 'ETHUSD', 'LTCUSD', 'XRPUSD'].map((symbol) => (
                             <div
                                 key={symbol}
-                                className="flex items-center justify-between bg-gray-100 p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200"
+                                onClick={() => setSelectedSymbol(symbol)}
+                                className={`flex items-center justify-between bg-gray-100 p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer `}
                             >
-                                <p className="text-gray-700 font-medium">
-                                    {symbol} Chart
+                                <p className="text-gray-700 font-medium ">
+                                    View {symbol} Chart
                                 </p>
                                 <button
-                                    onClick={() => setSelectedSymbol(symbol)}
                                     className={`px-4 py-2 rounded-lg font-semibold text-sm ${
                                         selectedSymbol === symbol
                                             ? 'bg-indigo-600 text-white'
@@ -88,7 +77,7 @@ const Crypto = () => {
                 </div>
             </div>
         </div>
-    );
-}
+        );
+    };
 
 export default Crypto;

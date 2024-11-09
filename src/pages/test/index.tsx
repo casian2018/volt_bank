@@ -1,13 +1,15 @@
-import Chart from "@/components/Chart";
-import Crypto from "@/components/Crypto";
-import React from 'react'
+// App.tsx or any parent component
+import React from 'react';
+import Crypto from '@/components/Crypto';
+import Forex from '@/components/Forex';
 
+const App: React.FC = () => {
 
-const index = () => {
   return (
     <div>
-    <Crypto/>
+        <Crypto />
     </div>
-  )
-}
-export default index
+  );
+};
+
+export default App;

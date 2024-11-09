@@ -4,7 +4,7 @@ import { Doughnut } from 'react-chartjs-2';
 import 'chart.js/auto';
 
 
-const CryptoPieChart = () => {
+const PieChart = () => {
     const data = {
         labels: [
           'symbol 1',
@@ -40,4 +40,4 @@ const CryptoPieChart = () => {
   );
 }
 
-export default CryptoPieChart;
+export default PieChart;
