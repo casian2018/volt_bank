@@ -17,6 +17,7 @@ const Forex: React.FC = () => {
         }
         const data = await response.json();
         setForexBalances(data);
+        console.log(data);
       } catch (error) {
         console.error(error);
       }
