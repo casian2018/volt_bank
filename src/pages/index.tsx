@@ -63,7 +63,7 @@ export default function Home() {
             </div>
             <ul
               role="list"
-              className="mx-auto mx-72 grid max-w-2xl grid-cols-1 gap-6 sm:gap-8 lg:mt-20 lg:max-w-none lg:grid-cols-3"
+              className="mx-auto grid max-w-2xl grid-cols-1 gap-6 sm:gap-8 lg:mt-20 lg:max-w-none lg:grid-cols-3"
             >
               {/* Repeat this block for each testimonial */}
               <li>

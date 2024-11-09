@@ -1,11 +1,11 @@
 "use client";
 
-import TransferForm from "../api/transfer";
+import { useRouter } from "next/router";
 import Nav from "../../components/nav";
 import Card from "../../components/card";
 import Footer from "../../components/footer"; // Correct import for Footer component
 import { useEffect, useState } from "react";
-import Transfer from "@/components/transfer";
+import Transfer from "../../components/transfer"; // Updated import for Transfer component
 import AddSavings from "@/components/addSavings";
 
 interface User {
@@ -35,6 +35,7 @@ interface TransactionCategory {
 }
 
 export default function ProfilePage() {
+  const router = useRouter();
   const [isTransferFormOpen, setTransferFormOpen] = useState(false);
   const [isAddSavingsFormOpen, setAddSavingsFormOpen] = useState(false);
 
@@ -51,13 +52,16 @@ export default function ProfilePage() {
   const closeForms = () => {
     setTransferFormOpen(false);
     setAddSavingsFormOpen(false);
+    router.reload(); // Refreshes the page to reset the state
   };
 
   const [user, setUser] = useState<User | null>(null);
   const [categories, setCategories] = useState<TransactionCategory[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [transactionsError, setTransactionsError] = useState<string | null>(null);
+  const [transactionsError, setTransactionsError] = useState<string | null>(
+    null
+  );
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -117,9 +121,18 @@ export default function ProfilePage() {
     fetchTransactions();
   }, []);
 
-  if (loading) return <p className="text-center text-lg font-semibold">Loading user data...</p>;
-  if (error) return <p className="text-center text-red-500 font-semibold">{error}</p>;
-  if (transactionsError) return <p className="text-center text-red-500 font-semibold">{transactionsError}</p>;
+  if (loading)
+    return (
+      <p className="text-center text-lg font-semibold">Loading user data...</p>
+    );
+  if (error)
+    return <p className="text-center text-red-500 font-semibold">{error}</p>;
+  if (transactionsError)
+    return (
+      <p className="text-center text-red-500 font-semibold">
+        {transactionsError}
+      </p>
+    );
 
   return (
     <main className="w-full bg-gray-50">
@@ -206,7 +219,10 @@ export default function ProfilePage() {
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
             <div className="bg-white p-6 rounded-lg shadow-lg">
               <Transfer />
-              <button onClick={closeForms} className="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg">
+              <button
+                onClick={closeForms}
+                className="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg"
+              >
                 Close
               </button>
             </div>
@@ -217,14 +233,20 @@ export default function ProfilePage() {
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
             <div className="bg-white p-6 rounded-lg shadow-lg">
               <AddSavings />
-              <button onClick={closeForms} className="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg">
+              <button
+                onClick={closeForms}
+                className="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg"
+              >
                 Close
               </button>
             </div>
           </div>
         )}
 
-        <div className="bg-white p-10 rounded-xl shadow-xl transform transition-all hover:scale-103 duration-500" id="cards">
+        <div
+          className="bg-white p-10 rounded-xl shadow-xl transform transition-all hover:scale-103 duration-500"
+          id="cards"
+        >
           <h1 className="text-black text-3xl font-semibold mb-6">Your Cards</h1>
           <div>
             <Card email={user?.email || ""} />
@@ -233,44 +255,19 @@ export default function ProfilePage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-6">
           {categories.map((category, index) => (
-            <div key={index} className="flex flex-col bg-gray-50 border border-gray-200 rounded-xl shadow-lg p-8 space-y-4 hover:scale-105 transition-all duration-500">
-              <h2 className="text-lg font-semibold">{category.type}</h2>
-              <p className="text-sm text-gray-500 font-semibold">Total: ${category.total.toFixed(2)}</p>
-              <p className="text-xs text-gray-400">Last transaction: {category.lastTransaction}</p>
+            <div
+              key={index}
+              className="flex flex-col bg-gray-50 p-6 rounded-xl shadow-md hover:scale-105 transition-all duration-200"
+            >
+              <h3 className="text-lg font-semibold">{category.type}</h3>
+              <p className="text-sm text-gray-500">Total: ${category.total}</p>
+              <p className="text-sm text-gray-400">Last Transaction: {category.lastTransaction}</p>
             </div>
           ))}
         </div>
-        <div className="bg-white p-6 rounded-xl border border-gray-50 shadow-lg" id="transactions">
-          <h1 className="text-3xl font-semibold text-gray-800 mb-6">Transactions</h1>
-          <table className="min-w-full divide-y divide-gray-200 mt-6">
-            <thead className="bg-gray-100">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Name
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Price
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Type
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {user &&
-                Object.entries(user.transactions.cash).map(([key, transaction]) => (
-                  <tr key={key} className="hover:bg-gray-50 transition duration-200">
-                    <td className="px-6 py-4 text-sm text-gray-900">{transaction.name}</td>
-                    <td className="px-6 py-4 text-sm text-gray-900">${transaction.price}</td>
-                    <td className="px-6 py-4 text-sm text-gray-900">{transaction.type}</td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
 
-      <Footer />
+        <Footer />
+      </div>
     </main>
   );
-}``
+}

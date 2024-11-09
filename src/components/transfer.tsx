@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FormEvent } from 'react';
 
 export default function Transfer() {
-  const [senderEmail, setSenderEmail] = useState('');
-  const [receiverEmail, setReceiverEmail] = useState('');
-  const [amount, setAmount] = useState(0);
-  const [message, setMessage] = useState(null);
+  const [senderEmail, setSenderEmail] = useState<string>(''); // Type inferred as string
+  const [receiverEmail, setReceiverEmail] = useState<string>(''); // Type inferred as string
+  const [amount, setAmount] = useState<number>(0); // Type inferred as number
+  const [message, setMessage] = useState<string | null>(null); // Explicit type for message
 
   // Fetch logged-in user's email from the backend API
   useEffect(() => {
@@ -33,7 +33,7 @@ export default function Transfer() {
     fetchUserEmail();
   }, []);
 
-  const handleTransfer = async (e) => {
+  const handleTransfer = async (e: FormEvent) => {
     e.preventDefault();
     try {
       const response = await fetch('/api/transfer', {
@@ -60,7 +60,7 @@ export default function Transfer() {
           <span className="text-[#64748B] text-lg font-bold">Sending Money</span>
         </div>
 
-        <div className="font-semibold hidden">cn trimite?</div>
+        <div className="font-semibold hidden">Sender:</div>
         {/* The sender's email input, set to readOnly */}
         <div>
           <input
@@ -85,7 +85,6 @@ export default function Transfer() {
             />
           </div>
         </div>
-
 
         <div className="mt-6">
           <div className="font-semibold">To Who:</div>
