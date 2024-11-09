@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import logo from "../../images/logo.png";
-import TransferForm from "../api/transfer"
+import TransferForm from "../api/transfer";
+import Card from "../../components/card";
 
 import { useEffect, useState } from "react";
 
@@ -33,12 +34,9 @@ interface TransactionCategory {
 }
 
 export default function ProfilePage() {
-
   const [isTransferFormOpen, setTransferFormOpen] = useState(false);
-
   const openTransferForm = () => setTransferFormOpen(true);
   const closeTransferForm = () => setTransferFormOpen(false);
-
 
   const [user, setUser] = useState<User | null>(null);
   const [categories, setCategories] = useState<TransactionCategory[]>([]);
@@ -46,6 +44,7 @@ export default function ProfilePage() {
   const [error, setError] = useState<string | null>(null);
   const [transactionsError, setTransactionsError] = useState<string | null>(null);
 
+  // Fetch user data including email, user info, etc.
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -53,7 +52,7 @@ export default function ProfilePage() {
         if (!emailResponse.ok) throw new Error("Could not retrieve email");
 
         const emailData = await emailResponse.text();
-        if (!emailData) throw new Error("Email not found in the file");
+        if (!emailData) throw new Error("Email not found");
 
         const response = await fetch(`/api/getUser?email=${emailData.trim()}`);
         const data = await response.json();
@@ -73,6 +72,7 @@ export default function ProfilePage() {
     fetchUserData();
   }, []);
 
+  // Fetch transaction categories
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
@@ -94,6 +94,7 @@ export default function ProfilePage() {
     fetchTransactions();
   }, []);
 
+  // Show loading, error, or transaction error messages
   if (loading) return <p>Loading user data...</p>;
   if (error) return <p className="text-red-500">{error}</p>;
   if (transactionsError)
@@ -110,8 +111,6 @@ export default function ProfilePage() {
         {/* User Account Information */}
         <div className="gap-y-4 md:gap-6">
           {/* Main Account Section */}
-
-          
           <div className="flex flex-col space-y-6 bg-gradient-to-r from-blue-900 to-indigo-600 p-8 rounded-2xl border border-gray-200 shadow-lg ease-in-out hover:scale-105 duration-500">
             <div className="flex justify-between">
               <span className="text-xs text-gray-100 font-semibold uppercase tracking-wider">
@@ -131,6 +130,9 @@ export default function ProfilePage() {
                   **** **** *321
                 </p>
               </div>
+              <div>
+                <Card email={user?.email || ""} />
+              </div>
 
               {/* Available Funds */}
               <h2 className="text-3xl text-yellow-400 font-black ml-auto">
@@ -140,12 +142,10 @@ export default function ProfilePage() {
 
             {/* Action Buttons */}
             <div className="flex flex-col md:flex-row gap-4 md:gap-6">
-              <button 
-                
+              <button
                 className="px-5 py-3 w-full md:w-auto text-center rounded-lg text-white bg-green-500 hover:bg-green-600 text-xs tracking-wider font-semibold transition duration-250"
               >
                 Transfer Money
-                
               </button>
               <a
                 href="#"
@@ -236,45 +236,8 @@ export default function ProfilePage() {
             </h2>
           </div>
 
-          <div className="col-span-5 bg-white p-6 rounded-xl border border-gray-50 flex flex-col space-y-6">
-            <div className="flex justify-between items-center">
-              <h2 className="text-sm text-gray-600 font-bold tracking-wide">
-                Latest Transactions
-              </h2>
-              <a
-                href="#"
-                className="text-xs text-blue-500 font-semibold hover:text-blue-700"
-              >
-                View all
-              </a>
-            </div>
-            {user?.transactions.cash &&
-              Object.keys(user.transactions.cash)
-                .reverse()
-                .slice(0, 5)
-                .map((key) => {
-                  const transaction = user.transactions.cash[key];
-                  // Verifică dacă price este un număr valid
-                  const price =
-                    typeof transaction.price === "number" && !isNaN(transaction.price)
-                      ? transaction.price
-                      : 0; // Valoare implicită dacă price nu este valid
-
-                  return (
-                    <div
-                      key={key}
-                      className="flex justify-between text-sm text-gray-600"
-                    >
-                      <div>
-                        <h3 className="font-semibold">{transaction.name}</h3>
-                        <p>{transaction.type}</p>
-                      </div>
-                      <p className="text-right font-bold">
-                        ${price.toFixed(2)} {/* Aplică toFixed doar dacă price este un număr valid */}
-                      </p>
-                    </div>
-                  );
-                })}
+          <div className="col-span-5 bg-white p-6 rounded-xl border border-gray-50 flex flex-col space-y-3">
+            {/* Render transactions here */}
           </div>
         </div>
       </div>
