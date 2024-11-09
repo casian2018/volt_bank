@@ -1,34 +1,46 @@
 import React, { useEffect, useState } from 'react';
 import Chart from './Chart';
 import PieChart from './PieChart';
-import AssetBalance from './AssetBalance';
-
-
 
 const Crypto = () => {
-    const [selectedSymbol, setSelectedSymbol] = useState('BTCUSD');
-    
+    const [selectedSymbol, setSelectedSymbol] = useState('BTCUSDT');
+    const [total, setTotal] = useState(0);
     const cryptoBalances = {
-        bitcoin: 0.7,
-        ethereum: 2.0,
-        litecoin: 10.0,
-        ripple: 1000.0
+        BTCUSDT: 0.7,
+    };
+
+    useEffect(() => {
+        const fetchPrice = async () => {
+            try {
+                const Symbol = selectedSymbol; // Extract the symbol part (e.g., BTC from BTCUSD)
+                const response = await fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${Symbol}`);
+                const data = await response.json();
+                const price = parseFloat(data.price);
+                const balance = (cryptoBalances as any)[Symbol] || 0;
+                setTotal(price * balance);
+            } catch (error) {
+                console.error('Error fetching price:', error);
+            }
         };
-    
+
+        fetchPrice();
+    }, [selectedSymbol]);
 
     return (
         <div className="p-6 bg-gradient-to-b from-gray-50 to-gray-200 min-h-screen">
-            <div className=' flex gap-12 '>
-            <div className="mb-8 bg-white p-6 shadow-lg rounded-xl mt-6 w-full">
-                <h2 className="text-xl font-semibold text-gray-800">Total Balance</h2>
-                <AssetBalance cryptoBalances={cryptoBalances} />
-                
-            </div>
-
-            <div className="mt-6 bg-white p-6 shadow-lg rounded-xl w-fit mb-8">
-                <h2 className="text-2xl font-semibold text-gray-800 mb-4">Portfolio Allocation</h2>
-                <PieChart />
-            </div>
+            <div className='flex gap-12'>
+                <div className='w-1/2'>
+                    <div className="bg-white p-6 shadow-lg rounded-xl">
+                        <h2 className="text-2xl font-semibold text-gray-800 mb-4">Asset Allocation</h2>
+                        <PieChart />
+                    </div>
+                </div>
+                <div className='w-1/2'>
+                    <div className="bg-white p-6 shadow-lg rounded-xl">
+                        <h2 className="text-2xl font-semibold text-gray-800 mb-4">Asset Balance</h2>
+                        <p className="text-gray-600 text-sm mb-4">Your current balance is ${total.toFixed(2)}</p>
+                    </div>
+                </div>
             </div>
 
             {/* Chart and Crypto Selector */}
@@ -65,7 +77,7 @@ const Crypto = () => {
                 </div>
             </div>
         </div>
-    );
-}
+        );
+    };
 
 export default Crypto;
