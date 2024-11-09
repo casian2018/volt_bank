@@ -11,7 +11,7 @@ interface CardInfo {
 interface UserData {
   firstName: string;
   lastName: string;
-  cardInfo: CardInfo;
+  cardInfo: CardInfo[];
 }
 
 interface CardProps {
@@ -65,17 +65,17 @@ const Card: React.FC<CardProps> = ({ email }) => {
               </div>
               <div className="pt-1">
                 <p className="font-semibold">Card Number</p>
-                <p className="font-s tracking-more-wider ">{cardData.cardInfo.number.replace(/\d{4}(?=.)/g, "$& ")}</p>
+                <p className="font-s tracking-more-wider ">{cardData.cardInfo[0].number.replace(/\d{4}(?=.)/g, "$& ")}</p>
               </div>
               <div className="pt-6 pr-6">
                 <div className="flex justify-between">
                   <div>
                     <p className="font-semibold text-xs">Valid</p>
-                    <p className="font-s tracking-wider text-sm">{cardData.cardInfo.validFrom || "11/15"}</p>
+                    <p className="font-s tracking-wider text-sm">{cardData.cardInfo[0].validFrom || "11/15"}</p>
                   </div>
                   <div>
                     <p className="font-semibold text-xs ">Expiry</p>
-                    <p className="font-medium tracking-wider text-sm">{cardData.cardInfo.expiry || "03/25"}</p>
+                    <p className="font-medium tracking-wider text-sm">{cardData.cardInfo[0].expiry || "03/25"}</p>
                   </div>
                   <div>
                     <p className="font-semibold text-xs">CVV</p>

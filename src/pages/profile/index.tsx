@@ -130,10 +130,6 @@ export default function ProfilePage() {
                   **** **** *321
                 </p>
               </div>
-              <div className="ml-auto">
-                <Card email={user?.email || ""} />
-              </div>
-
               {/* Available Funds */}
               <h2 className="text-3xl text-yellow-400 font-black ml-auto">
                 ${user?.balance.toFixed(2)}
@@ -189,11 +185,18 @@ export default function ProfilePage() {
                 href="#"
                 className="text-white bg-green-500 hover:bg-green-600 hover:text-white px-5 py-3 w-full md:w-auto text-center rounded-lg text-xs tracking-wider font-semibold duration-250"
               >
-                Transfer Money
+                Add Money
               </a>
             </div>
           </div>
         </div>
+
+        <div className="flex flex-col space-y-8 bg-gradient-to-r from-blue-800 to-indigo-600 p-10 rounded-3xl border border-gray-300 shadow-xl transition-transform duration-300 hover:scale-105">
+      <h1 className="text-white text-3xl font-bold">Your Cards</h1>
+      <div>
+        <Card email={user?.email || ""} />
+      </div>
+    </div>
 
         {/* Transaction Categories */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 px-4 xl:px-0">
@@ -237,7 +240,42 @@ export default function ProfilePage() {
           </div>
 
           <div className="col-span-5 bg-white p-6 rounded-xl border border-gray-50 flex flex-col space-y-3">
-            {/* Render transactions here */}
+          <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-100">
+            <tr>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Name
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Price
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Type
+              </th>
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {user &&
+              Object.entries(user.transactions.cash).map(
+                ([key, transaction]) => (
+                  <tr
+                    key={key}
+                    className="hover:bg-gray-50 transition-colors duration-200"
+                  >
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      {transaction.name}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      ${transaction.price}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      {transaction.type}
+                    </td>
+                  </tr>
+                )
+              )}
+          </tbody>
+        </table>
           </div>
         </div>
       </div>
