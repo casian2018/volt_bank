@@ -7,15 +7,22 @@ const Stocks = () => {
     const [stockPrices, setStockPrices] = useState<{ [key: string]: number }>({});
     const [stockBalances, setStockBalances] = useState<{ [key: string]: number }>({}); // Initialize state for stock balances
 
-    const fetchStockBalances = async () => {
-        try {
-            const response = await fetch(`/api/stock-balances/YOUR_USER_ID`); // Replace with actual user ID
-            const data = await response.json();
-            setStockBalances(data);
-        } catch (error) {
-            console.error('Error fetching stock balances:', error);
-        }
-    };
+    useEffect(() => {
+        const fetchStockBalances = async () => {
+            try {
+                const response = await fetch("/api/stock-balances");
+                if (!response.ok) {
+                    throw new Error("Failed to fetch balances");
+                }
+                const data = await response.json();
+                setStockBalances(data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+    
+        fetchStockBalances();
+      }, []);
 
     const fetchStockPrices = async () => {
         const updatedUsdBalances: { [key: string]: number } = {};
@@ -24,7 +31,7 @@ const Stocks = () => {
         for (const [stock, balance] of Object.entries(stockBalances)) {
             try {
                 const response = await fetch(
-                    `https://finnhub.io/api/v1/quote?symbol=${stock}&token=YOUR_FINNHUB_API_KEY`
+                    `https://finnhub.io/api/v1/quote?symbol=${stock}&token=csn70hpr01qqapai5o6gcsn70hpr01qqapai5o70`
                 );
                 const data = await response.json();
                 const price = data.c || 0;
@@ -40,7 +47,7 @@ const Stocks = () => {
     };
 
     useEffect(() => {
-        fetchStockBalances();
+        // This useEffect is not needed and can be removed
     }, []);
 
     useEffect(() => {

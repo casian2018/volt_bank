@@ -10,9 +10,7 @@ const App: React.FC = () => {
 
   return (
     <div>
-      <Crypto />
-       <Stocks /> 
-       <Forex />
+       <Forex /> 
     </div>
   );
 };

@@ -97,28 +97,6 @@ const Crypto = () => {
                     <p className="text-gray-800 font-medium">
                       {balance as number}
                     </p>{" "}
-                    <button>
-                        {" "}
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-5 w-5 text-indigo-600"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                        >
-                            {" "}
-                            <path
-                            fillRule="evenodd"
-                            d="M10 3a1 1 0 00-1 1v1.586L5.707 6.293a1 1 0 00-1.414 1.414l4.5 4.5a1 1 0 001.414 0l4.5-4.5a1 1 0 00-1.414-1.414L11 5.586V4a1 1 0 00-1-1z"
-                            clipRule="evenodd"
-                            />{" "}
-                            <path
-                            fillRule="evenodd"
-                            d="M4 5a1 1 0 011-1h10a1 1 0 011 1v1a1 1 0 01-1 1H5a1 1 0 01-1-1V5z"
-                            clipRule="evenodd"
-                            />{" "}
-                        </svg>{" "}
-                        
-                    </button>
                   </div>
                 ))}{" "}
               </div>{" "}

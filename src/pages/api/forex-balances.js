@@ -3,7 +3,7 @@ import clientPromise from './mongodb';
 import fs from 'fs';
 import path from 'path';
 
-async function getStockBalances(req, res) {
+async function getForexBalances(req, res) {
     if (req.method !== 'GET') {
         return res.status(405).json({ message: 'Method Not Allowed' });
     }
@@ -27,8 +27,8 @@ async function getStockBalances(req, res) {
         const db = client.db('volt_bank');
         const user = await db.collection('users').findOne({ email });
 
-        if (user && user.stockBalances) {
-            return res.status(200).json(user.stockBalances);
+        if (user && user.forexBalances) {
+            return res.status(200).json(user.forexBalances);
         } else {
             return res.status(404).json({ message: 'User  not found or no balances available' });
         }
@@ -38,4 +38,4 @@ async function getStockBalances(req, res) {
     }
 }
 
-export default getStockBalances;
+export default getForexBalances;
