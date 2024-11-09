@@ -1,3 +1,4 @@
+import { MongoClient } from 'mongodb';
 import clientPromise from './mongodb';
 import fs from 'fs';
 import path from 'path';
@@ -26,8 +27,8 @@ async function getBalances(req, res) {
         const db = client.db('volt_bank');
         const user = await db.collection('users').findOne({ email });
 
-        if (user && user.cryptoBalances) {
-            return res.status(200).json(user.cryptoBalances);
+        if (user && user.stockBalances) {
+            return res.status(200).json(user.stockBalances);
         } else {
             return res.status(404).json({ message: 'User  not found or no balances available' });
         }
