@@ -38,6 +38,7 @@ const Forex: React.FC = () => {
         }
 
         setSelectedChartPair(newSymbol.toUpperCase()+'USD');
+		setSelectedChartPair(Object.keys(forexBalances)[0] || '');
       } catch (error) {
         console.error("Error adding new symbol:", error);
       }
