@@ -1,3 +1,4 @@
+// components/crypto.tsx
 import React, { useEffect, useState } from "react";
 import Chart from "./Chart";
 import PieChart from "./PieChart";
@@ -6,14 +7,14 @@ const Crypto = () => {
   const [total, setTotal] = useState(0);
   const [selectedChartSymbol, setSelectedChartSymbol] = useState("BTCUSD");
   const [cryptoBalances, setCryptoBalances] = useState<{ [key: string]: number }>({});
-  const [loading, setLoading] = useState(true); // Loading state
-  const [error, setError] = useState<string | null>(null); // Error state
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchUserData = async () => { // Corrected function name
-      setLoading(true); // Start loading
+    const fetchUserData = async () => {
+      setLoading(true);
       try {
-        const response = await fetch("/api/getUserCryptoBalances", { // Corrected API endpoint
+        const response = await fetch("/api/getUserCryptoBalances", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -21,7 +22,8 @@ const Crypto = () => {
         });
 
         if (!response.ok) {
-          throw new Error("Failed to fetch user data");
+          const errMessage = await response.json();
+          throw new Error(errMessage.error || "Failed to fetch user data");
         }
 
         const data = await response.json();
@@ -30,50 +32,48 @@ const Crypto = () => {
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
-        if (error instanceof Error) {
-          setError(error.message); // Set error message
-        } else {
-          setError("An unknown error occurred");
-        }
+        setError(error instanceof Error ? error.message : "An unknown error occurred");
       } finally {
-        setLoading(false); // End loading
+        setLoading(false);
       }
     };
 
-    fetchUserData(); // Corrected function call
+    fetchUserData();
   }, []);
 
   useEffect(() => {
     const fetchPrices = async () => {
       let totalValue = 0;
-
-      // Loop through each cryptocurrency and get its current price
+  
       for (const [symbol, balance] of Object.entries(cryptoBalances)) {
         try {
-          const response = await fetch(
-            `https://api.binance.com/api/v3/ticker/price?symbol=${symbol}`
-          );
+          const response = await fetch(`/api/fetchCryptoPrice?symbol=${symbol}`);
           const data = await response.json();
-          const price = parseFloat(data.price);
-
-          totalValue += balance * price;
+  
+          if (response.ok) {
+            const price = parseFloat(data.price);
+            totalValue += balance * price;
+          } else {
+            console.error(`Error fetching price for ${symbol}:`, data.error);
+          }
         } catch (error) {
           console.error(`Error fetching price for ${symbol}:`, error);
         }
       }
-
-      setTotal(totalValue); // Update total balance
+  
+      setTotal(totalValue);
     };
-
+  
     if (Object.keys(cryptoBalances).length > 0) {
-      fetchPrices(); // Trigger price fetch when balances are available
+      fetchPrices();
     }
   }, [cryptoBalances]);
+  
 
   return (
     <div className="p-6 min-h-screen">
-      {loading && <p>Loading...</p>} {/* Loading indicator */}
-      {error && <p className="text-red-500">{error}</p>} {/* Error message */}
+      {loading && <p>Loading...</p>}
+      {error && <p className="text-red-500">{error}</p>}
 
       {!loading && !error && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -104,8 +104,8 @@ const Crypto = () => {
           </div>
         </div>
       )}
-           {/* Chart and Crypto Selector */}
-           <div className="flex flex-col lg:flex-row gap-6 mt-6">
+
+      <div className="flex flex-col lg:flex-row gap-6 mt-6">
         <div className="flex flex-col w-full bg-white p-6 shadow-lg rounded-xl">
           <h2 className="text-2xl font-semibold text-gray-800 mb-4">Market Chart</h2>
           <Chart symbol={selectedChartSymbol} />
@@ -113,21 +113,21 @@ const Crypto = () => {
         <div className="flex flex-col w-full lg:w-1/3 bg-white p-6 shadow-lg rounded-xl">
           <h2 className="text-xl font-semibold text-gray-800 mb-4">Select Cryptocurrency</h2>
           <div className="space-y-3">
-            {["BTCUSD", "ETHUSD", "LTCUSD", "XRPUSD"].map((Chartsymbol) => (
+            {["BTCUSD", "ETHUSD", "LTCUSD", "XRPUSD"].map((symbol) => (
               <div
-                key={Chartsymbol}
-                onClick={() => setSelectedChartSymbol(Chartsymbol)}
+                key={symbol}
+                onClick={() => setSelectedChartSymbol(symbol)}
                 className={`flex items-center justify-between bg-gray-100 p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer`}
               >
-                <p className="text-gray-700 font-medium">View {Chartsymbol} Chart</p>
+                <p className="text-gray-700 font-medium">View {symbol} Chart</p>
                 <button
                   className={`px-4 py-2 rounded-lg font-semibold text-sm ${
-                    selectedChartSymbol === Chartsymbol
+                    selectedChartSymbol === symbol
                       ? "bg-indigo-600 text-white"
                       : "bg-indigo-50 text-indigo-600 border border-indigo-500 hover:bg-indigo-100"
                   } transition duration-150`}
                 >
-                  {Chartsymbol}
+                  {symbol}
                 </button>
               </div>
             ))}

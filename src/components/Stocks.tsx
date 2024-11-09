@@ -5,12 +5,18 @@ import PieChart from './PieChart';
 const Stocks = () => {
     const [selectedStock, setSelectedStock] = useState('AAPL');
     const [stockPrices, setStockPrices] = useState<{ [key: string]: number }>({});
-    const [stockBalances, setStockBalances] = useState<{ [key: string]: number }>({}); // Initialize state for stock balances
+    const [stockBalances, setStockBalances] = useState<{ [key: string]: number }>({});
 
     useEffect(() => {
         const fetchStockBalances = async () => {
             try {
-                const response = await fetch("/api/stock-balances");
+                const response = await fetch("/api/stock-balances", {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: 'include', // This allows cookies to be sent with the request
+                });
                 if (!response.ok) {
                     throw new Error("Failed to fetch balances");
                 }
@@ -22,7 +28,7 @@ const Stocks = () => {
         };
     
         fetchStockBalances();
-      }, []);
+    }, []);
 
     const fetchStockPrices = async () => {
         const updatedUsdBalances: { [key: string]: number } = {};
@@ -45,10 +51,6 @@ const Stocks = () => {
         setStockPrices(updatedUsdBalances);
         return { updatedUsdBalances, total };
     };
-
-    useEffect(() => {
-        // This useEffect is not needed and can be removed
-    }, []);
 
     useEffect(() => {
         if (Object.keys(stockBalances).length > 0) {
