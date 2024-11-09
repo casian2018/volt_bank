@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import logo from "../../images/logo.png";
+import TransferForm from "../api/transfer"
 
 import { useEffect, useState } from "react";
 
@@ -32,6 +33,13 @@ interface TransactionCategory {
 }
 
 export default function ProfilePage() {
+
+  const [isTransferFormOpen, setTransferFormOpen] = useState(false);
+
+  const openTransferForm = () => setTransferFormOpen(true);
+  const closeTransferForm = () => setTransferFormOpen(false);
+
+
   const [user, setUser] = useState<User | null>(null);
   const [categories, setCategories] = useState<TransactionCategory[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -102,6 +110,8 @@ export default function ProfilePage() {
         {/* User Account Information */}
         <div className="gap-y-4 md:gap-6">
           {/* Main Account Section */}
+
+          
           <div className="flex flex-col space-y-6 bg-gradient-to-r from-blue-900 to-indigo-600 p-8 rounded-2xl border border-gray-200 shadow-lg ease-in-out hover:scale-105 duration-500">
             <div className="flex justify-between">
               <span className="text-xs text-gray-100 font-semibold uppercase tracking-wider">
@@ -130,12 +140,13 @@ export default function ProfilePage() {
 
             {/* Action Buttons */}
             <div className="flex flex-col md:flex-row gap-4 md:gap-6">
-              <a
-                href="#"
+              <button 
+                
                 className="px-5 py-3 w-full md:w-auto text-center rounded-lg text-white bg-green-500 hover:bg-green-600 text-xs tracking-wider font-semibold transition duration-250"
               >
                 Transfer Money
-              </a>
+                
+              </button>
               <a
                 href="#"
                 className="px-5 py-3 w-full md:w-auto text-center rounded-lg text-black bg-yellow-50 hover:bg-yellow-400 hover:text-white text-xs tracking-wider font-semibold transition duration-250"
