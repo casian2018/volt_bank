@@ -71,7 +71,7 @@ export default function LoginPage() {
             </button>
             <div className="flex justify-between mt-4">
               <span className="text-sm ml-2 cursor-pointer">Forgot Password?</span>
-              <a href="#" className="text-sm ml-2 cursor-pointer">Don't have an account yet?</a>
+              <a href="/register" className="text-sm ml-2 cursor-pointer">Don't have an account yet?</a>
             </div>
           </form>
         </div>

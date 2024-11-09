@@ -20,6 +20,7 @@ const Forex = () => {
         }
         const data = await response.json();
         setForexBalances(data);
+        console.log(data);
       } catch (error) {
         console.error(error);
       }
@@ -34,7 +35,7 @@ const Forex = () => {
       for (const [forex, balance] of Object.entries(forexBalances)) {
         try {
           const response = await fetch(
-            `⁠https://api.exchangerate-api.com/v4/latest/USD `
+            `https://api.exchangerate-api.com/v4/latest/USD`
           );
           const data = await response.json();
           const price = data.rates[forex.toUpperCase()] || 0;
