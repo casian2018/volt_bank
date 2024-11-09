@@ -46,13 +46,13 @@ const Card: React.FC<CardProps> = ({ email }) => {
   if (!cardData) return <p>Loading...</p>;
 
   return (
-    <div>
-      <div className="bg-white mt-6 flex justify-center items-center">
+    <div >
+      <div className=" mt-6 flex justify-center items-center shadow-lg">
         <div className="space-y-16">
-          <div className="w-96 h-56 m-auto bg-red-100 rounded-xl relative text-white shadow-2xl transition-transform transform hover:scale-110">
+          <div className="w-96 h-56 m-auto bg-red-100 rounded-xl relative text-white shadow-2xl ">
             <img
               className="relative object-cover w-full h-full rounded-xl"
-              src="https://i.imgur.com/kGkSg1v.png"
+              src="https://i.imgur.com/Zi6v09P.png"
               alt="Card Background"
             />
             <div className="w-full px-8 absolute top-8">

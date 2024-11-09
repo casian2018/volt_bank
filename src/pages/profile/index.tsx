@@ -130,7 +130,7 @@ export default function ProfilePage() {
                   **** **** *321
                 </p>
               </div>
-              <div>
+              <div className="ml-auto">
                 <Card email={user?.email || ""} />
               </div>
 
