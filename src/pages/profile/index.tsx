@@ -1,8 +1,7 @@
 "use client";
 
-import Image from "next/image";
-import logo from "../../images/logo.png";
 import TransferForm from "../api/transfer";
+import Nav from "../../components/nav";
 import Card from "../../components/card";
 
 import { useEffect, useState } from "react";
@@ -102,14 +101,12 @@ export default function ProfilePage() {
 
   return (
     <main className="container mx-auto py-6 px-4 xl:px-0 ">
-      {/* Header with Logo */}
-      <header className="w-full py-4 flex justify-center items-center">
-        <Image src={logo} alt="Logo" className="h-12 w-auto" />
-      </header>
-
+      <div className="pb-24">
+        <Nav/>
+      </div>
       <div className="space-y-8 mt-4">
         {/* User Account Information */}
-        <div className="gap-y-4 md:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Main Account Section */}
           <div className="flex flex-col space-y-6 bg-gradient-to-r from-blue-900 to-indigo-600 p-8 rounded-2xl border border-gray-200 shadow-lg ease-in-out hover:scale-105 duration-500">
             <div className="flex justify-between">
@@ -153,8 +150,8 @@ export default function ProfilePage() {
           </div>
 
           {/* Savings Account Section */}
-          <div className="flex flex-col space-y-6 bg-gradient-to-r from-blue-900 to-indigo-600 p-8 rounded-2xl border border-gray-200 shadow-lg mt-6 hover:scale-105 duration-500">
-            <div className="flex justify-between">
+          <div className="flex flex-col bg-gradient-to-r from-blue-900 to-indigo-600 p-8 rounded-2xl border border-gray-200 shadow-lg hover:scale-105 duration-500">
+            <div className="flex justify-between space-y-4">
               <span className="text-xs text-gray-100 font-semibold uppercase tracking-wider">
                 Savings Account
               </span>
@@ -180,7 +177,7 @@ export default function ProfilePage() {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex flex-col md:flex-row gap-4 md:gap-6">
+            <div className="flex flex-col md:flex-row gap-4 md:gap-6 pt-4">
               <a
                 href="#"
                 className="text-white bg-green-500 hover:bg-green-600 hover:text-white px-5 py-3 w-full md:w-auto text-center rounded-lg text-xs tracking-wider font-semibold duration-250"
@@ -232,14 +229,8 @@ export default function ProfilePage() {
         </div>
 
         {/* Latest Transactions */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-y-4 md:gap-6 mx-auto max-w-screen-lg">
-          <div className="col-span-5">
-            <h2 className="text-2xl md:text-sm text-gray-800 font-bold tracking-wide">
-              Summary Transactions
-            </h2>
-          </div>
-
           <div className="col-span-5 bg-white p-6 rounded-xl border border-gray-50 flex flex-col space-y-3">
+          <h1 className="text-3xl font-bold">Transactions</h1>
           <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-100">
             <tr>
@@ -278,7 +269,6 @@ export default function ProfilePage() {
         </table>
           </div>
         </div>
-      </div>
     </main>
   );
 }

@@ -47,7 +47,7 @@ const Card: React.FC<CardProps> = ({ email }) => {
 
   return (
     <div >
-      <div className=" mt-6 flex justify-center items-center shadow-lg">
+      <div className=" mt-6 flex justify-center items-center">
         <div className="space-y-16">
           <div className="w-96 h-56 m-auto bg-red-100 rounded-xl relative text-white shadow-2xl ">
             <img
