@@ -9,30 +9,25 @@ async function getCryptoBalances(req, res) {
     return res.status(405).json({ message: 'Method Not Allowed' });
   }
 
-  // Get the token from cookies
   const token = req.cookies.token;
 
   if (!token) {
-    return res.status(401).json({ message: 'Unauthorized' });
+    return res.status(401).json({ message: 'Unauthorized: No token found' });
   }
 
   try {
-    // Verify the token and extract email from it
     const decoded = jwt.verify(token, JWT_SECRET);
     const email = decoded.email;
 
-    // Connect to the MongoDB database
     const client = await clientPromise;
     const db = client.db('volt_bank');
     const user = await db.collection('users').findOne({ email });
 
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: 'User  not found' });
     }
 
-    // Fetch crypto balances from the user object
-    const cryptoBalances = user.cryptoBalances || {}; // Assuming 'cryptoBalances' is stored in the user document
-
+    const cryptoBalances = user.cryptoBalances || {};
     return res.status(200).json({ cryptoBalances });
   } catch (error) {
     console.error('Error fetching crypto balances:', error);
