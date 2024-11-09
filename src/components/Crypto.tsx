@@ -68,7 +68,6 @@ const Crypto = () => {
       fetchPrices();
     }
   }, [cryptoBalances]);
-  
 
   return (
     <div className="p-6 min-h-screen">
@@ -80,7 +79,8 @@ const Crypto = () => {
           <div className="w-full lg:w-1/2">
             <div className="bg-white p-6 shadow-lg rounded-xl h-full">
               <h2 className="text-2xl font-semibold text-gray-800 mb-4">Asset Allocation</h2>
-              <PieChart />
+              {/* Pass cryptoBalances to PieChart */}
+              <PieChart balances={cryptoBalances} />
             </div>
           </div>
           <div className="w-full lg:w-1/2">

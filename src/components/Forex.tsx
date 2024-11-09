@@ -1,5 +1,6 @@
+// Forex.tsx
 import React, { useEffect, useState } from "react";
-import Chart from "./Chart";
+import Chart from "./Chart"; // Assuming you have this component
 import PieChart from "./PieChart";
 
 const Forex: React.FC = () => {
@@ -17,7 +18,6 @@ const Forex: React.FC = () => {
         }
         const data = await response.json();
         setForexBalances(data);
-        console.log(data);
       } catch (error) {
         console.error(error);
       }
@@ -72,7 +72,7 @@ const Forex: React.FC = () => {
 
         <div className="mt-6 bg-white p-6 shadow-lg rounded-xl w-fit mb-8">
           <h2 className="text-2xl font-semibold text-gray-800 mb-4">Portfolio Allocation</h2>
-          <PieChart />
+          <PieChart balances={forexBalances} />
         </div>
       </div>
 
@@ -89,7 +89,7 @@ const Forex: React.FC = () => {
               <div
                 key={pair}
                 onClick={() => setSelectedChartPair(pair)}
-                className={`flex items-center justify-between bg-gray-100 p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer `}
+                className={`flex items-center justify-between bg-gray-100 p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer`}
               >
                 <p className="text-gray-700 font-medium">View {pair} Chart</p>
                 <button
