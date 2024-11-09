@@ -30,7 +30,7 @@ async function getForexBalances(req, res) {
         if (user && user.forexBalances) {
             return res.status(200).json(user.forexBalances);
         } else {
-            return res.status(404).json({ message: 'User  not found or no balances available' });
+            return res.status(404).json({ message: 'User not found or no balances available' });
         }
     } catch (error) {
         console.error('Error fetching user balances:', error);
