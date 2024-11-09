@@ -243,6 +243,12 @@ export default function ProfilePage() {
                 .slice(0, 5)
                 .map((key) => {
                   const transaction = user.transactions.cash[key];
+                  // Verifică dacă price este un număr valid
+                  const price =
+                    typeof transaction.price === "number" && !isNaN(transaction.price)
+                      ? transaction.price
+                      : 0; // Valoare implicită dacă price nu este valid
+
                   return (
                     <div
                       key={key}
@@ -253,7 +259,7 @@ export default function ProfilePage() {
                         <p>{transaction.type}</p>
                       </div>
                       <p className="text-right font-bold">
-                        ${transaction.price.toFixed(2)}
+                        ${price.toFixed(2)} {/* Aplică toFixed doar dacă price este un număr valid */}
                       </p>
                     </div>
                   );
