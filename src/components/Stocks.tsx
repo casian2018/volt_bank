@@ -1,3 +1,4 @@
+// Stocks.tsx
 import React, { useEffect, useState } from 'react';
 import Chart from './Chart';
 import PieChart from './PieChart';
@@ -5,12 +6,19 @@ import PieChart from './PieChart';
 const Stocks = () => {
     const [selectedStock, setSelectedStock] = useState('AAPL');
     const [stockPrices, setStockPrices] = useState<{ [key: string]: number }>({});
-    const [stockBalances, setStockBalances] = useState<{ [key: string]: number }>({}); // Initialize state for stock balances
+    const [stockBalances, setStockBalances] = useState<{ [key: string]: number }>({});
+    const [total, setTotal] = useState(0);
 
     useEffect(() => {
         const fetchStockBalances = async () => {
             try {
-                const response = await fetch("/api/stock-balances");
+                const response = await fetch("/api/stock-balances", {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: 'include',
+                });
                 if (!response.ok) {
                     throw new Error("Failed to fetch balances");
                 }
@@ -22,11 +30,11 @@ const Stocks = () => {
         };
     
         fetchStockBalances();
-      }, []);
+    }, []);
 
     const fetchStockPrices = async () => {
         const updatedUsdBalances: { [key: string]: number } = {};
-        let total = 0;
+        let totalValue = 0;
 
         for (const [stock, balance] of Object.entries(stockBalances)) {
             try {
@@ -37,18 +45,14 @@ const Stocks = () => {
                 const price = data.c || 0;
                 const usdValue = balance * price;
                 updatedUsdBalances[stock] = usdValue;
-                total += usdValue;
+                totalValue += usdValue;
             } catch (error) {
                 console.error(`Error fetching price for ${stock}:`, error);
             }
         }
         setStockPrices(updatedUsdBalances);
-        return { updatedUsdBalances, total };
+        setTotal(totalValue);
     };
-
-    useEffect(() => {
-        // This useEffect is not needed and can be removed
-    }, []);
 
     useEffect(() => {
         if (Object.keys(stockBalances).length > 0) {
@@ -87,7 +91,7 @@ const Stocks = () => {
 
                 <div className="mt-6 bg-white p-6 shadow-lg rounded-xl w-fit mb-8">
                     <h2 className="text-2xl font-semibold text-gray-800 mb-4">Portfolio Allocation</h2>
-                    <PieChart />
+                    <PieChart balances={stockPrices} />
                 </div>
             </div>
 
@@ -106,7 +110,7 @@ const Stocks = () => {
                                 onClick={() => setSelectedStock(stock)}
                                 className={`flex items-center justify-between bg-gray-100 p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer `}
                             >
-                                <p className="text-gray-700 font-medium ">
+                                <p className="text-gray-700 font-medium">
                                     View {stock} Chart
                                 </p>
                                 <button
@@ -125,6 +129,6 @@ const Stocks = () => {
             </div>
         </div>
     );
-}
+};
 
 export default Stocks;

@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import Image from "next/image";
+import logo from "../images/logo.png";
 
 export default function Nav() {
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -13,7 +15,7 @@ export default function Nav() {
             <div className="flex items-center flex-1 md:absolute md:inset-y-0 md:left-0">
                 <div className="flex items-center justify-between w-full md:w-auto">
                     <a href="#"><span className="sr-only"></span>
-                        <img className="w-auto h-8 sm:h-10" src="https://www.svgrepo.com/show/448244/pack.svg" loading="lazy" width="202" height="40" />
+                      <Image src={logo} alt="Logo" className="h-12 w-auto" />
                     </a>
                     <div className="flex items-center -mr-2 md:hidden">
                         <button className="inline-flex items-center justify-center p-2 text-gray-400 bg-gray-50 rounded-md hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-50"  type="button" aria-expanded="false">

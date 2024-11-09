@@ -1,5 +1,3 @@
-import Image from "next/image";
-import logo from "../../images/logo.png";
 import { useEffect, useState } from "react";
 
 // Define types for card info and user data
@@ -13,18 +11,23 @@ interface CardInfo {
 interface UserData {
   firstName: string;
   lastName: string;
-  cardInfo: CardInfo;
+  cardInfo: CardInfo[];
 }
 
-const Card: React.FC = () => {
+interface CardProps {
+  email: string; // Accept email as a prop
+}
+
+const Card: React.FC<CardProps> = ({ email }) => {
   const [cardData, setCardData] = useState<UserData | null>(null);
-  const email = "justpetrez@gmail.com"; // Set the user's email dynamically
 
   useEffect(() => {
     const fetchCardData = async () => {
       try {
+        console.log("Fetching data with email:", email); // Debugging log to verify email
         const response = await fetch(`/api/getCardInfo?email=${email}`);
         const data = await response.json();
+
         if (response.ok) {
           setCardData(data);
         } else {
@@ -35,22 +38,21 @@ const Card: React.FC = () => {
       }
     };
 
-    fetchCardData();
+    if (email) {
+      fetchCardData();
+    }
   }, [email]);
 
   if (!cardData) return <p>Loading...</p>;
 
   return (
-    <div>
-      <div className="w-10 mt-4 flex justify-center items-center m-auto">
-        <Image src={logo} alt="Logo"></Image>
-      </div>
-      <div className="bg-white mt-6 flex justify-center items-center">
+    <div >
+      <div className=" mt-6 flex justify-center items-center">
         <div className="space-y-16">
-          <div className="w-96 h-56 m-auto bg-red-100 rounded-xl relative text-white shadow-2xl transition-transform transform hover:scale-110">
+          <div className="w-96 h-56 m-auto bg-red-100 rounded-xl relative text-white shadow-2xl ">
             <img
               className="relative object-cover w-full h-full rounded-xl"
-              src="https://i.imgur.com/kGkSg1v.png"
+              src="https://i.imgur.com/Zi6v09P.png"
               alt="Card Background"
             />
             <div className="w-full px-8 absolute top-8">
@@ -63,19 +65,17 @@ const Card: React.FC = () => {
               </div>
               <div className="pt-1">
                 <p className="font-semibold">Card Number</p>
-                <p className="font-s tracking-more-wider ">
-                  {cardData.cardInfo.number.replace(/\d{4}(?=.)/g, "$& ")}
-                </p>
+                <p className="font-s tracking-more-wider ">{cardData.cardInfo[0].number.replace(/\d{4}(?=.)/g, "$& ")}</p>
               </div>
               <div className="pt-6 pr-6">
                 <div className="flex justify-between">
                   <div>
                     <p className="font-semibold text-xs">Valid</p>
-                    <p className="font-s tracking-wider text-sm">{cardData.cardInfo.validFrom || "11/15"}</p>
+                    <p className="font-s tracking-wider text-sm">{cardData.cardInfo[0].validFrom || "11/15"}</p>
                   </div>
                   <div>
                     <p className="font-semibold text-xs ">Expiry</p>
-                    <p className="font-medium tracking-wider text-sm">{cardData.cardInfo.expiry || "03/25"}</p>
+                    <p className="font-medium tracking-wider text-sm">{cardData.cardInfo[0].expiry || "03/25"}</p>
                   </div>
                   <div>
                     <p className="font-semibold text-xs">CVV</p>

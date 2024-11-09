@@ -1,3 +1,4 @@
+// pages/api/login.js
 import clientPromise from '../../pages/api/mongodb';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
@@ -6,7 +7,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
-    return res.status(405).end('Method Not Allowed');
+    return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
   const { email, password } = req.body;
@@ -37,11 +38,10 @@ export default async function handler(req, res) {
     // Generate the JWT token
     const token = jwt.sign({ email: user.email }, JWT_SECRET, { expiresIn: '1h' });
 
-    // Store the token in a cookie (httpOnly for security)
+    // Set the token in an HTTP-only cookie for security
     res.setHeader('Set-Cookie', `token=${token}; HttpOnly; Path=/; Max-Age=3600; Secure; SameSite=Strict`);
 
-    // Respond with the token
-    res.status(200).json({ token });
+    res.status(200).json({ message: 'Login successful' });
 
   } catch (error) {
     console.error('Error during login:', error);
