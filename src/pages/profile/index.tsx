@@ -100,13 +100,13 @@ export default function ProfilePage() {
     return <p className="text-red-500">{transactionsError}</p>;
 
   return (
-    <main className="container mx-auto py-6 px-4 xl:px-0">
+    <main className="container mx-auto py-6 px-4 xl:px-0 ">
       {/* Header with Logo */}
       <header className="w-full py-4 flex justify-center items-center">
         <Image src={logo} alt="Logo" className="h-12 w-auto" />
       </header>
 
-      <div className="space-y-8">
+      <div className="space-y-8 mt-4">
         {/* User Account Information */}
         <div className="gap-y-4 md:gap-6">
           {/* Main Account Section */}
