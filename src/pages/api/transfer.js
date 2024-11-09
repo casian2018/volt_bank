@@ -1,4 +1,4 @@
-import clientPromise from './mongodb';
+import clientPromise from '../api/mongodb';
 
 export default async function transfer(req, res) {
   if (req.method !== 'POST') {
