@@ -2,29 +2,54 @@ import React, { useEffect, useState } from 'react';
 import Chart from './Chart';
 import PieChart from './PieChart';
 
-interface StockPrices {
-    [key: string]: number; 
-}
-
 const Stocks = () => {
     const [selectedStock, setSelectedStock] = useState('AAPL');
-    const [stockPrices, setStockPrices] = useState<StockPrices>({});
-    const [portfolio] = useState({ AAPL: 10, MSFT: 5 }); 
+    const [stockPrices, setStockPrices] = useState<{ [key: string]: number }>({});
+    const [stockBalances, setStockBalances] = useState<{ [key: string]: number }>({}); // Initialize state for stock balances
 
-    const fetchStockPrices = async () => {
+    const fetchStockBalances = async () => {
         try {
-            const prices = await fetch('/api/getStockPrices').then(res => res.json());
-            setStockPrices(prices);
+            const response = await fetch(`/api/stock-balances/YOUR_USER_ID`); // Replace with actual user ID
+            const data = await response.json();
+            setStockBalances(data);
         } catch (error) {
-            console.error('Error fetching stock prices:', error);
+            console.error('Error fetching stock balances:', error);
         }
     };
 
+    const fetchStockPrices = async () => {
+        const updatedUsdBalances: { [key: string]: number } = {};
+        let total = 0;
+
+        for (const [stock, balance] of Object.entries(stockBalances)) {
+            try {
+                const response = await fetch(
+                    `https://finnhub.io/api/v1/quote?symbol=${stock}&token=YOUR_FINNHUB_API_KEY`
+                );
+                const data = await response.json();
+                const price = data.c || 0;
+                const usdValue = balance * price;
+                updatedUsdBalances[stock] = usdValue;
+                total += usdValue;
+            } catch (error) {
+                console.error(`Error fetching price for ${stock}:`, error);
+            }
+        }
+        setStockPrices(updatedUsdBalances);
+        return { updatedUsdBalances, total };
+    };
+
     useEffect(() => {
-        fetchStockPrices();
+        fetchStockBalances();
     }, []);
 
-    const totalBalance = Object.entries(portfolio).reduce((acc, [stock, shares]) => {
+    useEffect(() => {
+        if (Object.keys(stockBalances).length > 0) {
+            fetchStockPrices();
+        }
+    }, [stockBalances]);
+
+    const totalBalance = Object.entries(stockBalances).reduce((acc, [stock, shares]) => {
         const price = stockPrices[stock] || 0;
         return acc + price * shares;
     }, 0);
@@ -38,15 +63,19 @@ const Stocks = () => {
                         ${totalBalance.toFixed(2)}
                     </p>
                     <p className="text-gray-500 mt-2">
-                        {Object.keys(portfolio).length} Stocks in Portfolio
+                        {Object.keys(stockBalances).length} Stocks in Portfolio
                     </p>
-                    <p className="text-gray-500"> 
-                        {Object.entries(portfolio).map(([stock, shares]) => (
-                            <span key={stock} className="text-gray-500">
-                                {stock}: {shares} shares <br />
-                            </span>
+                    <div className="text-gray-500"> 
+                        {Object.entries(stockBalances).map(([stock, shares]) => (
+                            <div key={stock}>
+                                <span className="text-gray-500 uppercase">
+                                    {stock}: {shares} 
+                                </span>
+                                {" "}shares
+                                <br />
+                            </div>
                         ))}
-                    </p>
+                    </div>
                 </div>
 
                 <div className="mt-6 bg-white p-6 shadow-lg rounded-xl w-fit mb-8">

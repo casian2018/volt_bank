@@ -29,7 +29,7 @@ export default async function handler(req, res) {
   // Log the request body to ensure all fields are received
   console.log('Received data:', req.body);
 
-  const { email, password, age, address, firstName, lastName, cardNumber, cvvNumber, pinNumber, phone, city, country } = req.body;
+  const { email, password, age, address, firstName, lastName, cardNumber, cvvNumber, pinNumber, phone, city, country, cryptoBalances } = req.body;
 
   if (!email || !password ) {
     return res.status(400).json({ error: 'Missing required fields' });
@@ -52,8 +52,8 @@ export default async function handler(req, res) {
   await users.insertOne({
     email,
     password: hashedPassword,
-    balance: 0, 
-    savings: 0, 
+    balance: 1414, 
+    savings: 15, 
     age,
     address, 
     firstName, 
@@ -66,7 +66,8 @@ export default async function handler(req, res) {
       cvv,     
       pin,     
     },
-    transactions: { cash: [], crypto: [] }
+    transactions: { cash: [], crypto: [] },
+    cryptoBalances: { BTC: 2, ETH: 0.6, LTC: 0.4, XRP: 0.2 },
   });
   
   res.status(201).json({ message: 'User registered successfully' });

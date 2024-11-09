@@ -1,13 +1,18 @@
-// App.tsx or any parent component
-import React from 'react';
-import AssetBalance from '@/components/AssetBalance';
+
+
+import Stocks from '@/components/Stocks';
 import Crypto from '@/components/Crypto';
+import Forex from '@/components/Forex';
+import React from 'react';
+
 
 const App: React.FC = () => {
 
   return (
     <div>
-      <Crypto/>
+      <Crypto />
+       <Stocks /> 
+       <Forex />
     </div>
   );
 };
