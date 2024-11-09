@@ -1,12 +1,14 @@
 
+
+import Stocks from '@/components/Stocks';
 import React from 'react';
-import Forex from '@/components/Forex';
+
 
 const App: React.FC = () => {
 
   return (
     <div>
-        <Forex />
+       <Stocks /> 
     </div>
   );
 };

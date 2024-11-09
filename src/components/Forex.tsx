@@ -49,13 +49,13 @@ const Forex = () => {
 
                 
                     {Object.entries(forexBalances).map(([symbol, balance]) => (
-                  <div key={symbol} className="flex justify-between">
+                    <div key={symbol} className="flex justify-between">
                     {" "}
                     <p className="text-gray-600 font-medium">
-                      {symbol}:
+                        {symbol}:
                     </p>{" "}
                     <p className="text-gray-800 font-medium">
-                      {balance as number}
+                        {balance as number}
                     </p>{" "}
                     <button>
                         {" "}
@@ -79,7 +79,7 @@ const Forex = () => {
                         </svg>{" "}
                         
                     </button>
-                  </div>
+                    </div>
                 ))}
 
 				</div>
