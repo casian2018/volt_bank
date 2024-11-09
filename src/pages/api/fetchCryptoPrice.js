@@ -7,7 +7,7 @@ export default async function handler(req, res) {
     }
   
     try {
-      const response = await fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${symbol}`);
+      const response = await fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${symbol}USDT`);
       if (!response.ok) {
         throw new Error(`Error fetching data from Binance: ${response.statusText}`);
       }
@@ -17,6 +17,6 @@ export default async function handler(req, res) {
     } catch (error) {
       console.error('Error fetching price:', error);
       res.status(500).json({ error: 'Failed to fetch price' });
-    }
+    }https://api.binance.com/api/v3/ticker/price?symbol=${symbo
   }
-  
+  ${currency.toLowerCase()}

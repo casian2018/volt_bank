@@ -1,13 +1,45 @@
-// Stocks.tsx
 import React, { useEffect, useState } from 'react';
 import Chart from './Chart';
 import PieChart from './PieChart';
 
 const Stocks = () => {
-    const [selectedStock, setSelectedStock] = useState('AAPL');
+    const [selectedStock, setSelectedStock] = useState('');
     const [stockPrices, setStockPrices] = useState<{ [key: string]: number }>({});
     const [stockBalances, setStockBalances] = useState<{ [key: string]: number }>({});
     const [total, setTotal] = useState(0);
+
+    const addNewStock = async () => {
+        const newStock = prompt("Enter a new stock symbol (e.g., TSLA):");
+        const initialBalance = 0; // Set initial balance to zero
+
+        if (newStock) {
+            try {
+                // Update the local state for instant feedback
+                setStockBalances((prevBalances) => ({
+                    ...prevBalances,
+                    [newStock.toUpperCase()]: initialBalance,
+                }));
+
+                // Save the new stock in the database
+                const response = await fetch("/api/stock-balances", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        symbol: newStock.toUpperCase(),
+                        balance: initialBalance,
+                    }),
+                });
+
+                if (!response.ok) {
+                    throw new Error("Failed to add new stock");
+                }
+
+                setSelectedStock(newStock.toUpperCase());
+            } catch (error) {
+                console.error("Error adding new stock:", error);
+            }
+        }
+    };
 
     useEffect(() => {
         const fetchStockBalances = async () => {
@@ -24,11 +56,12 @@ const Stocks = () => {
                 }
                 const data = await response.json();
                 setStockBalances(data);
+                setSelectedStock(Object.keys(data)[0] || '');
             } catch (error) {
                 console.error(error);
             }
         };
-    
+
         fetchStockBalances();
     }, []);
 
@@ -60,18 +93,13 @@ const Stocks = () => {
         }
     }, [stockBalances]);
 
-    const totalBalance = Object.entries(stockBalances).reduce((acc, [stock, shares]) => {
-        const price = stockPrices[stock] || 0;
-        return acc + price * shares;
-    }, 0);
-
     return (
         <div className="p-6 bg-gradient-to-b from-gray-50 to-gray-200 min-h-screen">
-            <div className='flex gap-12'>
+            <div className="flex gap-12">
                 <div className="mb-8 bg-white p-6 shadow-lg rounded-xl mt-6 w-full">
                     <h2 className="text-xl font-semibold text-gray-800">Total Balance</h2>
                     <p className="text-3xl font-bold text-indigo-600 mt-2">
-                        ${totalBalance.toFixed(2)}
+                        ${total.toFixed(2)}
                     </p>
                     <p className="text-gray-500 mt-2">
                         {Object.keys(stockBalances).length} Stocks in Portfolio
@@ -79,11 +107,8 @@ const Stocks = () => {
                     <div className="text-gray-500"> 
                         {Object.entries(stockBalances).map(([stock, shares]) => (
                             <div key={stock}>
-                                <span className="text-gray-500 uppercase">
-                                    {stock}: {shares} 
-                                </span>
-                                {" "}shares
-                                <br />
+                                <span className="text-gray-500 uppercase">{stock}:</span>
+                                {shares} shares
                             </div>
                         ))}
                     </div>
@@ -102,28 +127,38 @@ const Stocks = () => {
                 </div>
 
                 <div className="flex flex-col w-full lg:w-1/3 bg-white p-6 shadow-lg rounded-xl">
-                    <h2 className="text-xl font-semibold text-gray-800 mb-4">Select Stock</h2>
-                    <div className="space-y-3">
-                        {['AAPL', 'MSFT', 'GOOGL', 'AMZN'].map((stock) => (
-                            <div
-                                key={stock}
-                                onClick={() => setSelectedStock(stock)}
-                                className={`flex items-center justify-between bg-gray-100 p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer `}
+                    <div className="flex flex-col">
+                        <div className="flex justify-between pb-4">
+                            <h2 className="text-xl font-semibold text-gray-800 mb-4">Select Stock</h2>
+                            <button
+                                className="border-2 py-2 px-4 rounded-lg hover:bg-indigo-600 hover:text-white transition"
+                                onClick={addNewStock}
                             >
-                                <p className="text-gray-700 font-medium">
-                                    View {stock} Chart
-                                </p>
-                                <button
-                                    className={`px-4 py-2 rounded-lg font-semibold text-sm ${
-                                        selectedStock === stock
-                                            ? 'bg-indigo-600 text-white'
-                                            : 'bg-indigo-50 text-indigo-600 border border-indigo-500 hover:bg-indigo-100'
-                                    } transition duration-150`}
+                                Add
+                            </button>
+                        </div>
+                        <div className="space-y-3 flex flex-col">
+                            {Object.keys(stockBalances).map((stock) => (
+                                <div
+                                    key={stock}
+                                    onClick={() => setSelectedStock(stock)}
+                                    className={`flex items-center justify-between bg-gray-100 p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer`}
                                 >
-                                    {stock}
-                                </button>
-                            </div>
-                        ))}
+                                    <p className="text-gray-700 font-medium">
+                                        View {stock} Chart
+                                    </p>
+                                    <button
+                                        className={`px-4 py-2 rounded-lg font-semibold text-sm ${
+                                            selectedStock === stock
+                                                ? "bg-indigo-600 text-white"
+                                                : "bg-indigo-50 text-indigo-600 border border-indigo-500 hover:bg-indigo-100"
+                                        } transition duration-150`}
+                                    >
+                                        {stock}
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>

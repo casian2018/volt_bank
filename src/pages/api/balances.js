@@ -1,43 +1,60 @@
-import { MongoClient } from 'mongodb';
+// pages/api/getUserCryptoBalances.js
 import clientPromise from './mongodb';
 import jwt from 'jsonwebtoken';
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
-async function getCryptoBalances(req, res) {
-  if (req.method !== 'GET') {
-    return res.status(405).json({ message: 'Method Not Allowed' });
-  }
+export default async function handler(req, res) {
+    const token = req.cookies.token;
 
-  // Get the token from cookies
-  const token = req.cookies.token;
-
-  if (!token) {
-    return res.status(401).json({ message: 'Unauthorized' });
-  }
-
-  try {
-    // Verify the token and extract email from it
-    const decoded = jwt.verify(token, JWT_SECRET);
-    const email = decoded.email;
-
-    // Connect to the MongoDB database
-    const client = await clientPromise;
-    const db = client.db('volt_bank');
-    const user = await db.collection('users').findOne({ email });
-
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+    if (!token) {
+        return res.status(401).json({ error: 'Unauthorized: No token found' });
     }
 
-    // Fetch crypto balances from the user object
-    const cryptoBalances = user.cryptoBalances || {}; // Assuming 'cryptoBalances' is stored in the user document
+    try {
+        const decoded = jwt.verify(token, JWT_SECRET);
+        const email = decoded.email;
 
-    return res.status(200).json({ cryptoBalances });
-  } catch (error) {
-    console.error('Error fetching crypto balances:', error);
-    return res.status(500).json({ message: 'Error fetching crypto balances' });
-  }
+        const client = await clientPromise;
+        const db = client.db('volt_bank');
+        const usersCollection = db.collection('users');
+        const user = await usersCollection.findOne({ email });
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        if (req.method === 'GET') {
+            // Retrieve cryptoBalances
+            if (user.cryptoBalances) {
+                return res.status(200).json(user.cryptoBalances);
+            } else {
+                return res.status(404).json({ error: 'No balances available' });
+            }
+        } else if (req.method === 'POST') {
+            const { symbol, balance } = req.body;
+
+            if (!symbol || typeof balance !== 'number') {
+                return res.status(400).json({ error: 'Invalid symbol or balance' });
+            }
+
+            // Update user's cryptoBalances
+            const updatedCryptoBalances = {
+                ...user.cryptoBalances,
+                [symbol.toUpperCase()]: balance,
+            };
+
+            await usersCollection.updateOne(
+                { email },
+                { $set: { cryptoBalances: updatedCryptoBalances } }
+            );
+
+            return res.status(200).json({ message: 'Crypto added', cryptoBalances: updatedCryptoBalances });
+        } else {
+            return res.status(405).json({ error: 'Method Not Allowed' });
+        }
+    } catch (error) {
+        console.error('Error processing request:', error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
 }
-
-export default getCryptoBalances;
