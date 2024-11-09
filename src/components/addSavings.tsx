@@ -52,8 +52,8 @@ export default function AddSavings() {
     };
 
     return (
-        <div className="transfer-container flex h-screen w-full items-center justify-center">
-            <div className="w-[365px] bg-white p-6 rounded-lg shadow-lg">
+        <div className="transfer-container flex w-full items-center justify-center">
+            <div className="bg-white p-6 rounded-lg shadow-lg">
                 <h2 className="text-2xl font-bold text-gray-700 mb-4">Transfer to Savings</h2>
                 
                 <div className="balance-info mb-4 text-gray-500 font-medium">
