@@ -70,7 +70,11 @@ export default function ProfilePage() {
       pin: Array.from({ length: 4 }, () => Math.floor(Math.random() * 10)).join(''),
     };
   
+    console.log("Generated card info:", cardInfo); // Log the generated card details
+  
     try {
+      console.log("Sending card creation request:", { userId: user?.email, cardInfo });
+  
       const response = await fetch('/api/createCard', {
         method: 'POST',
         headers: {
@@ -79,10 +83,14 @@ export default function ProfilePage() {
         body: JSON.stringify({ userId: user?.email, cardInfo }),
       });
   
+      const data = await response.json(); // Parse the JSON response
+  
       if (response.ok) {
+        console.log("Card creation response:", data);
         alert('New card created successfully!');
         router.push('/profile'); // Redirect to reload data
       } else {
+        console.error("Failed to create card:", data);
         alert('Failed to create card.');
       }
     } catch (error) {
@@ -91,6 +99,8 @@ export default function ProfilePage() {
     }
   };
   
+  
+
   
   
 

@@ -1,6 +1,6 @@
+import { useState } from "react";
 import Image from "next/image";
-import logo from "../../images/logo.png";
-import { useEffect, useState } from "react";
+import logo from "../../images/logo.png"; // Your logo import
 
 // Define types for card info and user data
 interface CardInfo {
@@ -18,32 +18,58 @@ interface UserData {
 
 const Card: React.FC = () => {
   const [cardData, setCardData] = useState<UserData | null>(null);
-  const email = "justpetrez@gmail.com"; // Set the user's email dynamically
+  const [loading, setLoading] = useState(false); // Add loading state
 
-  useEffect(() => {
-    const fetchCardData = async () => {
-      try {
-        const response = await fetch(`/api/getCardInfo?email=${email}`);
-        const data = await response.json();
-        if (response.ok) {
-          setCardData(data);
-        } else {
-          console.error("Error fetching card data:", data.error);
-        }
-      } catch (error) {
-        console.error("An error occurred:", error);
-      }
+  const handleGenerateCard = async () => {
+    // Set loading state to true while fetching
+    setLoading(true);
+
+    const cardInfo = {
+      number: "1234 5678 9876 5432", // Example card number
+      cvv: "123",
+      validFrom: "11/15",
+      expiry: "03/25",
+    };
+    
+    const userInfo = {
+      firstName: "John",
+      lastName: "Doe",
+      email: "justpetrez@gmail.com",
+      cardInfo: [cardInfo],
     };
 
-    fetchCardData();
-  }, [email]);
+    try {
+      const response = await fetch('/api/saveCardInfo', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userInfo),
+      });
 
-  if (!cardData) return <p>Loading...</p>;
+      if (!response.ok) {
+        throw new Error("Failed to save card info");
+      }
+
+      const data = await response.json();
+      console.log("Card data saved:", data);
+      setCardData(data); // Set card data in state after saving
+    } catch (error) {
+      console.error("Error saving card data:", error);
+    } finally {
+      setLoading(false); // Set loading state back to false
+    }
+  };
+
+  // If loading or no card data, show loading text or message
+  if (loading || !cardData) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div>
       <div className="w-10 mt-4 flex justify-center items-center m-auto">
-        <Image src={logo} alt="Logo"></Image>
+        <Image src={logo} alt="Logo" />
       </div>
       <div className="bg-white mt-6 flex justify-center items-center">
         <div className="space-y-16">
@@ -84,6 +110,16 @@ const Card: React.FC = () => {
                 </div>
               </div>
             </div>
+          </div>
+
+          {/* Button to generate card */}
+          <div className="text-center mt-4">
+            <button
+              onClick={handleGenerateCard}
+              className="bg-blue-500 text-white px-4 py-2 rounded"
+            >
+              Generate Card
+            </button>
           </div>
         </div>
       </div>
