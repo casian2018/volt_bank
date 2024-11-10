@@ -57,7 +57,7 @@ const Footer = () => {
           </a>
 
         </div>
-        <p className="text-center text-gray-700 font-medium">
+        <p className="text-center text-gray-700 font-xs ">
           &copy; 2024 Volt Bank Ltd. All rights reservered.
         </p>
       </footer>
