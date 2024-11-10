@@ -48,7 +48,7 @@ const Card: React.FC<CardProps> = ({ email }) => {
   return (
     <div >
       <div className="flex justify-center items-center  ">
-        <div className=" grid grid-cols-1 md:grid-cols-1  gap-4 ">
+        <div className=" grid grid-cols-1 md:grid-cols-1  gap-4  ">
           {cardData.cardInfo.map((card, index) => (
             <div
               key={index}
@@ -56,7 +56,7 @@ const Card: React.FC<CardProps> = ({ email }) => {
             >
               <img
                 className="relative object-cover w-full h-full rounded-xl"
-                src="https://i.imgur.com/Zi6v09P.png"
+                src="https://files.123freevectors.com/wp-content/original/152951-abstract-black-background-vector-illustration.jpg"
                 alt="Card Background"
               />
               <div className="w-full px-8 absolute top-8">

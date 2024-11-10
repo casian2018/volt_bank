@@ -196,9 +196,9 @@ export default function ProfilePage() {
       </div>
 
       <div className="space-y-10 mt-6 px-24 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="flex flex-col space-y-6 bg-gradient-to-b from-black to-gray-800 p-8 rounded-xl border border-gray-200 shadow-lg hover:scale-105 transition-all duration-500">
-            <div className="flex justify-between items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 ">
+          <div className="flex flex-col space-y-6 bg-gradient-to-b  ">
+            <div className="flex flex-col space-y-6 bg-gradient-to-b from-black to-black p-8 rounded-xl border border-gray-200 shadow-lg hover:scale-105 transition-all duration-500"><div className="flex justify-between items-center ">
               <span className="text-xs text-gray-100 font-semibold uppercase tracking-wider">
                 Main Account
               </span>
@@ -207,7 +207,7 @@ export default function ProfilePage() {
               </span>
             </div>
 
-            <div className="flex justify-between items-center gap-4">
+            <div className="flex justify-between items-center gap-4 ">
               <div className="flex flex-col space-y-4">
                 <h2 className="text-white font-semibold text-2xl">
                   {user?.firstName}'s Account
@@ -235,9 +235,10 @@ export default function ProfilePage() {
               </a>
               
             </div>
-            <div id="cards"  >
+            </div>
+            <div id="cards"  className="flex flex-col space-y-6 bg-gradient-to-b from-black to-black p-8 rounded-xl border border-gray-200 shadow-lg hover:scale-105 transition-all duration-500" >
       <h1 className="text-white text-3xl font-semibold mb-6 mt-8">Your Cards</h1>
-      <div className=" mt-8" >
+      <div className=" mt-8 " >
         <Card email={user?.email || ""} />
       </div>  
       <button
@@ -250,9 +251,10 @@ export default function ProfilePage() {
     </div>
             
           </div>
+
           
 <div>
-          <div className="flex flex-col space-y-6 bg-gradient-to-r from-black to-gray-800 p-8 rounded-xl border border-gray-200 shadow-lg hover:scale-105 transition-all duration-500">
+          <div className="flex flex-col space-y-6 bg-gradient-to-r from-black to-black p-8 rounded-xl border border-gray-200 shadow-lg hover:scale-105 transition-all duration-500">
             <div className="flex justify-between items-center">
               <span className="text-xs text-gray-100 font-semibold uppercase tracking-wider">
                 Savings Account
