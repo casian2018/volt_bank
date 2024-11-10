@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
-async function buyCurrency(req, res) {
+async function buyCrypto(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method Not Allowed' });
   }
@@ -45,18 +45,19 @@ async function buyCurrency(req, res) {
     await db.collection('users').updateOne(
       { email },
       { 
-        $inc: { [`currencyBalances.${symbol}`]: amount },  // Increase forex balance for the selected pair
+        $inc: { [`cryptoBalances.${symbol}`]: amount },  // Increase forex balance for the selected pair
         $set: { balance: user.balance - spendingPrice }  // Deduct from USD balance
       }
     );
 
-    console.log(`Buying ${amount} of ${symbol} for ${spendingPrice} USD`);
+    console.log(`Buying ${amount} of ${symbol} for ${spendingPrice} USDT`);
 
-    return res.status(200).json({ message: 'Forex purchased successfully' });
+    return res.status(200).json({ message: 'Cryptocurrency bought successfully' });
+
   } catch (error) {
-    console.error('Error buying forex:', error);
-    return res.status(500).json({ message: 'Error buying forex' });
+    console.error('Error buying cryptocurrency:', error);
+    return res.status(500).json({ message: 'Error buying cryptocurrency' });
   }
 }
 
-export default buyCurrency;
+export default buyCrypto;
