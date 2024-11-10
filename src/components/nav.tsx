@@ -32,6 +32,7 @@ export default function Nav() {
   const [isTransactionsOpen, setTransactionsOpen] = useState(false);
 
   return (
+    
     <>
       <div className="px-12 mx-auto sm:px-6 fixed w-full bg-white z-[99]">
         <div className="relative py-6 ">
