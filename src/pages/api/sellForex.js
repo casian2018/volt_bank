@@ -26,14 +26,14 @@ async function sellForex(req, res) {
             return res.status(404).json({ message: "User not found" });
         }
 
-        const { currencyPair, amount, sellingPrice } = req.body;
+        const { pair, amount, sellingPrice } = req.body;
 
-        if (!currencyPair || !amount || !sellingPrice) {
-            return res.status(400).json({ message: "Missing required fields: currencyPair, amount, and sellingPrice are required" });
+        if (!pair || !amount || !sellingPrice) {
+            return res.status(400).json({ message: "Missing required fields: pair, amount, and sellingPrice are required" });
         }
 
         // Check if user has enough forex to sell
-        if (!user.forexBalances[currencyPair] || user.forexBalances[currencyPair] < amount) {
+        if (!user.forexBalances[pair] || user.forexBalances[pair] < amount) {
             return res.status(400).json({ message: "Insufficient forex balance" });
         }
 
@@ -44,12 +44,12 @@ async function sellForex(req, res) {
         await db.collection("users").updateOne(
             { email },
             {
-                $inc: { [`forexBalances.${currencyPair}`]: -amount },
+                $inc: { [`forexBalances.${pair}`]: -amount },
                 $set: { balance: user.balance + totalSellingPrice },
             }
         );
 
-        console.log(`Selling ${amount} of ${currencyPair} for ${totalSellingPrice} USD`);
+        console.log(`Selling ${amount} of ${pair} for ${totalSellingPrice} USD`);
 
         return res.status(200).json({ message: "Forex sold successfully" });
     } catch (error) {

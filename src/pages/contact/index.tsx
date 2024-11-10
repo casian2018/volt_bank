@@ -118,7 +118,7 @@ const ContactForm: React.FC = () => {
                                 value={formData.message}
                                 onChange={handleChange}
                                 rows={4}
-                                className="block w-full rounded-md px-3.5 py-2 shadow-sm ring-1 ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm"
+                                className="resize-none block w-full rounded-md px-3.5 py-2 shadow-sm ring-1 ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm"
                                 required
                             />
                         </div>
@@ -126,7 +126,7 @@ const ContactForm: React.FC = () => {
                     <div className="mt-10">
                         <button
                             type="submit"
-                            className="block w-full rounded-md bg-cyan-600 px-3.5 py-2.5 text-sm font-semibold text-white hover:bg-green-500 focus:outline focus:outline-2 focus:outline-indigo-600"
+                            className="block w-full rounded-md bg-cyan-600 px-3.5 py-2.5 text-sm font-semibold text-white hover:bg-green-500 transition focus:outline focus:outline-2 focus:outline-indigo-600"
                         >
                             Submit
                         </button>

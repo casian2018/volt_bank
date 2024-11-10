@@ -104,6 +104,7 @@ const Forex: React.FC = () => {
 
         if (!isNaN(spendingPrice) && !isNaN(currentPrice)) {
             const amount = spendingPrice * currentPrice;
+            console.log(amount);
             const priceP = document.getElementById("price");
             const priceText = document.getElementById("priceText");
             if (priceP) {
@@ -121,7 +122,8 @@ const Forex: React.FC = () => {
         const currentPrice = parseFloat((await (await fetch(`https://api.exchangerate-api.com/v4/latest/USD`)).json()).rates[selectedCurrency.toUpperCase()] || 0);
 
         if (!isNaN(spendingPrice) && !isNaN(currentPrice)) {
-            const amount = spendingPrice / currentPrice;
+            const amount = spendingPrice * currentPrice;
+            console.log(amount);
 
             try {
                 // Send request to the backend to buy the forex
@@ -138,6 +140,7 @@ const Forex: React.FC = () => {
                 // After success, fetch the updated forex prices and balances
                 if (!response.ok) {
                     await fetchForexPrices();
+                    window.location.reload();
 
                     // Update the local state for instant feedback
                     setCurrencyBalances((prevBalances) => ({
@@ -161,7 +164,7 @@ const Forex: React.FC = () => {
         const currentPrice = parseFloat((await (await fetch(`https://api.exchangerate-api.com/v4/latest/USD`)).json()).rates[selectedCurrency.toUpperCase()] || 0);
 
         if (!isNaN(sellingPrice) && !isNaN(currentPrice)) {
-            const amount = sellingPrice / currentPrice;
+            const amount = sellingPrice * currentPrice;
 
             if ((currencyBalances[selectedCurrency] || 0) < amount) {
                 alert("Insufficient currency balance to sell");
@@ -174,7 +177,7 @@ const Forex: React.FC = () => {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        symbol: selectedCurrency,
+                        pair: selectedCurrency,
                         amount: amount,
                         sellingPrice: sellingPrice,
                     }),
@@ -211,7 +214,7 @@ const Forex: React.FC = () => {
                 );
                 const data = await response.json();
                 const price = data.c || 0;
-                const usdValue = balance * price;
+                const usdValue = balance / price;
                 updatedUsdBalances[symbol] = usdValue;
                 totalValue += usdValue;
             } catch (error) {
@@ -305,7 +308,7 @@ const Forex: React.FC = () => {
                                                 htmlFor="price"
                                                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                             >
-                                                USD to spend
+                                                USD to spend/receive 
                                             </label>
                                             <input
                                                 type="number"
@@ -335,14 +338,22 @@ const Forex: React.FC = () => {
                                         <button
                                             type="button"
                                             className="w-full text-white flex items-center justify-center bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                                            onClick={buyCurrency}
+
+                                            onClick={() => {
+                                                buyCurrency();
+                                                window.location.reload();
+                                            }}
                                         >
                                             Buy Currency
                                         </button>
                                         <button
                                             type="button"
                                             className="w-full text-white flex items-center justify-center bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                                            onClick={sellCurrency}
+                                        onClick={async () => {
+                                            await sellCurrency();
+                                            await new Promise(resolve => setTimeout(resolve, 750));
+                                            // window.location.reload();
+                                        }}
                                         >
                                             Sell Currency
                                         </button>
