@@ -119,17 +119,17 @@ export default function Nav() {
                   Contact
                 </a>
               </li>
-            </div>
-            <div className="hidden md:absolute md:flex md:items-center md:justify-end md:inset-y-0 md:right-0">
-              <div className="inline-flex rounded-full shadow">
+              <li>
                 <a
-                  href="/login"
-                  className="inline-flex items-center px-4 py-2 text-base text-gray-900 bg-white border border-transparent rounded-full cursor-pointer font-base hover:bg-gray-50 "
+                  href="/learn"
+                  className="text-base font-normal text-gray-500 list-none hover:text-gray-900"
+                  target=""
                 >
-                  Sign in
+                  Learn 
                 </a>
-              </div>
+              </li>
             </div>
+          
           </nav>
         </div>
       </div>

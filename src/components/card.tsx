@@ -46,13 +46,13 @@ const Card: React.FC<CardProps> = ({ email }) => {
   if (!cardData) return <p>Loading...</p>;
 
   return (
-    <div>
-      <div className="flex justify-center items-center">
-        <div className=" grid grid-cols-1 md:grid-cols-1  gap-4">
+    <div >
+      <div className="flex justify-center items-center  ">
+        <div className=" grid grid-cols-1 md:grid-cols-1  gap-4 ">
           {cardData.cardInfo.map((card, index) => (
             <div
               key={index}
-              className="w-96 h-56 m-auto  bg-red-100 rounded-xl relative text-white shadow-2xl"
+              className="w-auto h-56 md:min-h-74 m-auto  bg-red-100 rounded-xl relative text-white shadow-2xl"
             >
               <img
                 className="relative object-cover w-full h-full rounded-xl"
