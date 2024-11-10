@@ -1,4 +1,4 @@
-import clientPromise from '../../pages/api/mongodb';
+import clientPromise from '@/pages/api/mongodb';
 import bcrypt from 'bcryptjs';
 
 export default async function handler(req, res) {
@@ -26,11 +26,13 @@ export default async function handler(req, res) {
 
     const cardInfo = [
       {
-      number: '4' + Array.from({ length: 15 }, () => Math.floor(Math.random() * 10)).join(''),
-      cvv: Array.from({ length: 3 }, () => Math.floor(Math.random() * 10)).join(''),
-      pin: Array.from({ length: 4 }, () => Math.floor(Math.random() * 10)).join(''),
+        number: '4' + Array.from({ length: 15 }, () => Math.floor(Math.random() * 10)).join(''),
+        cvv: Array.from({ length: 3 }, () => Math.floor(Math.random() * 10)).join(''),
+        pin: Array.from({ length: 4 }, () => Math.floor(Math.random() * 10)).join(''),
       }
     ];
+
+    const iban = Array.from({ length: 22 }, () => Math.floor(Math.random() * 10)).join('');
 
     await users.insertOne({
       email,
@@ -45,8 +47,11 @@ export default async function handler(req, res) {
       city,
       country,
       cardInfo,
+      iban,
       transactions: { cash: [], crypto: [] },
       cryptoBalances: { BTC: 2, ETH: 0.6, LTC: 0.4, XRP: 0.2 },
+      stocks: { AAPL: 2, AMZN: 1, TSLA: 1 },
+      forexBalances: { EUR: 100, GBP: 50, JPY: 5000 },
     });
 
     res.status(201).json({ message: 'User registered successfully' });

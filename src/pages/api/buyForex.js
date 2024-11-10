@@ -26,13 +26,13 @@ async function buyForex(req, res) {
             return res.status(404).json({ message: "User not found" });
         }
 
-        const { currency, amount, buyingPrice } = req.body;
+        const { currency, amount, spendingPrice } = req.body;
 
-        if (!currency || !amount || !buyingPrice) {
+        if (!currency || !amount || !spendingPrice) {
             return res.status(400).json({ message: "Missing required fields" });
         }
 
-        if (user.balance < buyingPrice) {
+        if (user.balance < spendingPrice) {
             return res.status(400).json({ message: "Insufficient balance" });
         }
 
@@ -40,11 +40,11 @@ async function buyForex(req, res) {
             { email },
             { 
                 $inc: { [`forexBalances.${currency}`]: amount },
-                $set: { balance: user.balance - buyingPrice }
+                $set: { balance: user.balance - spendingPrice }
             }
         );
 
-        console.log(`Buying ${amount} of ${currency} for ${buyingPrice} USD`);
+        console.log(`Buying ${amount} of ${currency} for ${spendingPrice} USD`);
 
         return res.status(200).json({ message: "Forex bought successfully" });
     } catch (error) {

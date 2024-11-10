@@ -12,6 +12,7 @@
     "@thirdweb-dev/sdk": "^4.0.99",
     "bcryptjs": "^2.4.3",
     "chart.js": "^4.4.6",
+    "cookie": "^1.0.1",
     "cookie-parser": "^1.4.7",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.10.0",
