@@ -240,8 +240,8 @@ export default function ProfilePage() {
               
             </div>
             </div>
-            <div id="cards"  className="flex flex-col space-y-6 bg-gradient-to-b from-black to-black p-8 rounded-xl border border-gray-200 shadow-lg hover:scale-105 transition-all duration-500" >
-      <h1 className="text-white text-3xl font-semibold mb-6 mt-8">Your Cards</h1>
+            <div id="cards"  className="flex flex-col space-y-6 bg-gradient-to-b from-white to-white p-8 rounded-xl border border-gray-200 shadow-lg hover:scale-105 transition-all duration-500" >
+      <h1 className="text-black text-3xl font-semibold mb-6 mt-8">Your Cards</h1>
       <div className=" mt-8 " >
         <Card email={user?.email || ""} />
       </div>  
@@ -307,7 +307,7 @@ export default function ProfilePage() {
         </div>
 
         {isTransferFormOpen && (
-          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="fixed inset-0 flex items-center justify-center bg-black  bg-opacity-50 z-50">
             <div className="bg-white p-6 rounded-lg shadow-lg">
               <Transfer />
               <button
