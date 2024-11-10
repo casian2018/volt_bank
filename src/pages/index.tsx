@@ -80,22 +80,20 @@ export default function Home() {
                       </svg>
                       <blockquote className="relative">
                         <p className="text-lg tracking-tight text-slate-900">
-                          As a business professional, I rely on high-quality
-                          financial services to manage my accounts. This bank
-                          offers a great selection of top-notch solutions.
+                        "As a professional who values precision and strategy, I trust only the best financial services to manage my wealth. This bank offers exceptional solutions that align with my commitment to excellence, providing me with the tools I need to secure and grow my assets."
                         </p>
                       </blockquote>
                       <figcaption className="relative mt-6 flex items-center justify-between border-t border-slate-100 pt-6">
                         <div>
                           <div className="font-display text-base text-slate-900">
-                            Sheryl Berge
+                            Gica Hagi
                           </div>
                         </div>
                         <div className="overflow-hidden rounded-full bg-slate-50">
                           <img
                             alt=""
                             className="h-14 w-14 object-cover"
-                            src="https://randomuser.me/api/portraits/men/15.jpg"
+                            src="https://as.ro/wp-content/uploads/2022/04/hagi.jpg"
                           />
                         </div>
                       </figcaption>
@@ -117,22 +115,20 @@ export default function Home() {
                       </svg>
                       <blockquote className="relative">
                         <p className="text-lg tracking-tight text-slate-900">
-                          As a business professional, I rely on high-quality
-                          financial services to manage my accounts. This bank
-                          offers a great selection of top-notch solutions.
+                        "As a forward-thinking entrepreneur, I rely on trusted financial services to help manage my ventures. This bank offers innovative solutions that provide the support and flexibility I need to drive success and grow my business."
                         </p>
                       </blockquote>
                       <figcaption className="relative mt-6 flex items-center justify-between border-t border-slate-100 pt-6">
                         <div>
                           <div className="font-display text-base text-slate-900">
-                            Sheryl Berge
+                            Amba Tucan
                           </div>
                         </div>
                         <div className="overflow-hidden rounded-full bg-slate-50">
                           <img
                             alt=""
                             className="h-14 w-14 object-cover"
-                            src="https://randomuser.me/api/portraits/men/15.jpg"
+                            src="https://media.tenor.com/yilq7mth--UAAAAe/ambatukam-war-stare-ambatukam-meme.png"
                           />
                         </div>
                       </figcaption>
@@ -154,22 +150,125 @@ export default function Home() {
                       </svg>
                       <blockquote className="relative">
                         <p className="text-lg tracking-tight text-slate-900">
-                          As a business professional, I rely on high-quality
-                          financial services to manage my accounts. This bank
-                          offers a great selection of top-notch solutions.
+                        "As a passionate performer, I understand the importance of harmony and precision in every aspect of life. This bank provides me with exceptional financial services, allowing me to focus on my art while they take care of my financial needs with care and expertise."
                         </p>
                       </blockquote>
                       <figcaption className="relative mt-6 flex items-center justify-between border-t border-slate-100 pt-6">
                         <div>
                           <div className="font-display text-base text-slate-900">
-                            Sheryl Berge
+                            Floricica Dansatoarea
                           </div>
                         </div>
                         <div className="overflow-hidden rounded-full bg-slate-50">
                           <img
                             alt=""
                             className="h-14 w-14 object-cover"
-                            src="https://randomuser.me/api/portraits/men/15.jpg"
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxBzR0yD4r700j3ibisQPkaQE_EhUkxO1ugQ&s"
+                          />
+                        </div>
+                      </figcaption>
+                    </figure>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <ul role="list" className="flex flex-col gap-y-6 sm:gap-y-8">
+                  <li>
+                    <figure className="relative rounded-2xl bg-white p-6 shadow-xl shadow-slate-900/10">
+                      <svg
+                        aria-hidden="true"
+                        width="105"
+                        height="78"
+                        className="absolute left-6 top-6 fill-slate-100"
+                      >
+                        <path d="M25.086 77.292c-4.821 0-9.115-1.205-12.882-3.616-3.767-2.561-6.78-6.102-9.04-10.622C1.054 58.534 0 53.411 0 47.686c0-5.273.904-10.396 2.712-15.368 1.959-4.972 4.746-9.567 8.362-13.786a59.042 59.042 0 0 1 12.43-11.3C28.325 3.917 33.599 1.507 39.324 0l11.074 13.786c-6.479 2.561-11.677 5.951-15.594 10.17-3.767 4.219-5.65 7.835-5.65 10.848 0 1.356.377 2.863 1.13 4.52.904 1.507 2.637 3.089 5.198 4.746 3.767 2.41 6.328 4.972 7.684 7.684 1.507 2.561 2.26 5.5 2.26 8.814 0 5.123-1.959 9.19-5.876 12.204-3.767 3.013-8.588 4.52-14.464 4.52Zm54.24 0c-4.821 0-9.115-1.205-12.882-3.616-3.767-2.561-6.78-6.102-9.04-10.622-2.11-4.52-3.164-9.643-3.164-15.368 0-5.273.904-10.396 2.712-15.368 1.959-4.972 4.746-9.567 8.362-13.786a59.042 59.042 0 0 1 12.43-11.3C82.565 3.917 87.839 1.507 93.564 0l11.074 13.786c-6.479 2.561-11.677 5.951-15.594 10.17-3.767 4.219-5.65 7.835-5.65 10.848 0 1.356.377 2.863 1.13 4.52.904 1.507 2.637 3.089 5.198 4.746 3.767 2.41 6.328 4.972 7.684 7.684 1.507 2.561 2.26 5.5 2.26 8.814 0 5.123-1.959 9.19-5.876 12.204-3.767 3.013-8.588 4.52-14.464 4.52Z"></path>
+                      </svg>
+                      <blockquote className="relative">
+                        <p className="text-lg tracking-tight text-slate-900">
+                        "As a dedicated professional, I value efficiency and reliability in every business decision. This bank delivers top-tier financial solutions that help me manage my assets with ease, allowing me to focus on what truly matters—achieving my goals."
+                        </p>
+                      </blockquote>
+                      <figcaption className="relative mt-6 flex items-center justify-between border-t border-slate-100 pt-6">
+                        <div>
+                          <div className="font-display text-base text-slate-900">
+                            Casian Oprea
+                          </div>
+                        </div>
+                        <div className="overflow-hidden rounded-full bg-slate-50">
+                          <img
+                            alt=""
+                            className="h-14 w-14 object-cover"
+                            src="https://instagram.ftsr1-2.fna.fbcdn.net/v/t1.15752-9/462582403_1769670070538149_349573694838816650_n.jpg?stp=dst-jpg_s480x480&_nc_cat=107&ccb=1-7&_nc_sid=0024fc&_nc_ohc=VpWgv4y6f_cQ7kNvgEtQEcO&_nc_zt=23&_nc_ht=instagram.ftsr1-2.fna&oh=03_Q7cD1QHr_BoBeEx4tvwBLDgHWr7pJdBLMmVCbwxFXdKGIIPeyw&oe=6757F80F"
+                          />
+                        </div>
+                      </figcaption>
+                    </figure>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <ul role="list" className="flex flex-col gap-y-6 sm:gap-y-8">
+                  <li>
+                    <figure className="relative rounded-2xl bg-white p-6 shadow-xl shadow-slate-900/10">
+                      <svg
+                        aria-hidden="true"
+                        width="105"
+                        height="78"
+                        className="absolute left-6 top-6 fill-slate-100"
+                      >
+                        <path d="M25.086 77.292c-4.821 0-9.115-1.205-12.882-3.616-3.767-2.561-6.78-6.102-9.04-10.622C1.054 58.534 0 53.411 0 47.686c0-5.273.904-10.396 2.712-15.368 1.959-4.972 4.746-9.567 8.362-13.786a59.042 59.042 0 0 1 12.43-11.3C28.325 3.917 33.599 1.507 39.324 0l11.074 13.786c-6.479 2.561-11.677 5.951-15.594 10.17-3.767 4.219-5.65 7.835-5.65 10.848 0 1.356.377 2.863 1.13 4.52.904 1.507 2.637 3.089 5.198 4.746 3.767 2.41 6.328 4.972 7.684 7.684 1.507 2.561 2.26 5.5 2.26 8.814 0 5.123-1.959 9.19-5.876 12.204-3.767 3.013-8.588 4.52-14.464 4.52Zm54.24 0c-4.821 0-9.115-1.205-12.882-3.616-3.767-2.561-6.78-6.102-9.04-10.622-2.11-4.52-3.164-9.643-3.164-15.368 0-5.273.904-10.396 2.712-15.368 1.959-4.972 4.746-9.567 8.362-13.786a59.042 59.042 0 0 1 12.43-11.3C82.565 3.917 87.839 1.507 93.564 0l11.074 13.786c-6.479 2.561-11.677 5.951-15.594 10.17-3.767 4.219-5.65 7.835-5.65 10.848 0 1.356.377 2.863 1.13 4.52.904 1.507 2.637 3.089 5.198 4.746 3.767 2.41 6.328 4.972 7.684 7.684 1.507 2.561 2.26 5.5 2.26 8.814 0 5.123-1.959 9.19-5.876 12.204-3.767 3.013-8.588 4.52-14.464 4.52Z"></path>
+                      </svg>
+                      <blockquote className="relative">
+                        <p className="text-lg tracking-tight text-slate-900">
+                        "As a leader entrusted with great responsibility, I understand the importance of sound financial management. This esteemed bank provides exceptional services that ensure my wealth is safeguarded, supporting the pursuit of enduring stability and prosperity."
+                        </p>
+                      </blockquote>
+                      <figcaption className="relative mt-6 flex items-center justify-between border-t border-slate-100 pt-6">
+                        <div>
+                          <div className="font-display text-base text-slate-900">
+                          Elizabeth 
+                          </div>
+                        </div>
+                        <div className="overflow-hidden rounded-full bg-slate-50">
+                          <img
+                            alt=""
+                            className="h-14 w-14 object-cover"
+                            src="https://cdn.britannica.com/97/155297-050-E37867BF/Elizabeth-II-2007.jpg"
+                          />
+                        </div>
+                      </figcaption>
+                    </figure>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <ul role="list" className="flex flex-col gap-y-6 sm:gap-y-8">
+                  <li>
+                    <figure className="relative rounded-2xl bg-white p-6 shadow-xl shadow-slate-900/10">
+                      <svg
+                        aria-hidden="true"
+                        width="105"
+                        height="78"
+                        className="absolute left-6 top-6 fill-slate-100"
+                      >
+                        <path d="M25.086 77.292c-4.821 0-9.115-1.205-12.882-3.616-3.767-2.561-6.78-6.102-9.04-10.622C1.054 58.534 0 53.411 0 47.686c0-5.273.904-10.396 2.712-15.368 1.959-4.972 4.746-9.567 8.362-13.786a59.042 59.042 0 0 1 12.43-11.3C28.325 3.917 33.599 1.507 39.324 0l11.074 13.786c-6.479 2.561-11.677 5.951-15.594 10.17-3.767 4.219-5.65 7.835-5.65 10.848 0 1.356.377 2.863 1.13 4.52.904 1.507 2.637 3.089 5.198 4.746 3.767 2.41 6.328 4.972 7.684 7.684 1.507 2.561 2.26 5.5 2.26 8.814 0 5.123-1.959 9.19-5.876 12.204-3.767 3.013-8.588 4.52-14.464 4.52Zm54.24 0c-4.821 0-9.115-1.205-12.882-3.616-3.767-2.561-6.78-6.102-9.04-10.622-2.11-4.52-3.164-9.643-3.164-15.368 0-5.273.904-10.396 2.712-15.368 1.959-4.972 4.746-9.567 8.362-13.786a59.042 59.042 0 0 1 12.43-11.3C82.565 3.917 87.839 1.507 93.564 0l11.074 13.786c-6.479 2.561-11.677 5.951-15.594 10.17-3.767 4.219-5.65 7.835-5.65 10.848 0 1.356.377 2.863 1.13 4.52.904 1.507 2.637 3.089 5.198 4.746 3.767 2.41 6.328 4.972 7.684 7.684 1.507 2.561 2.26 5.5 2.26 8.814 0 5.123-1.959 9.19-5.876 12.204-3.767 3.013-8.588 4.52-14.464 4.52Z"></path>
+                      </svg>
+                      <blockquote className="relative">
+                        <p className="text-lg tracking-tight text-slate-900">
+                        "As someone deeply committed to shaping the future, I understand the value of reliable financial services. This bank offers a strong foundation of innovative solutions, enabling me to manage my wealth effectively and ensure long-term success."
+                        </p>
+                      </blockquote>
+                      <figcaption className="relative mt-6 flex items-center justify-between border-t border-slate-100 pt-6">
+                        <div>
+                          <div className="font-display text-base text-slate-900">
+                            Vadim Tudor
+                          </div>
+                        </div>
+                        <div className="overflow-hidden rounded-full bg-slate-50">
+                          <img
+                            alt=""
+                            className="h-14 w-14 object-cover"
+                            src="https://s1.ziareromania.ro/?mmid=c864e1b1882d09f56f"
                           />
                         </div>
                       </figcaption>
