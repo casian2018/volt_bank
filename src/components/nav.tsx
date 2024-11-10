@@ -3,36 +3,11 @@ import { useState } from "react";
 import Image from "next/image";
 import logo from "../images/logo.png";
 
-// Inside your ProfilePage or any component
-
-import { useRouter } from "next/router";
-
-const signOut = async () => {
-  try {
-    // Call the API route to sign out
-    const response = await fetch('/api/signOut', {
-      method: 'POST',
-    });
-
-    if (response.ok) {
-      // Redirect to the homepage or login page after successful sign-out
-      window.location.href = '/';  // You can change this to wherever you want to redirect
-    } else {
-      alert("Failed to sign out.");
-    }
-  } catch (error) {
-    console.error("Error signing out:", error);
-    alert("An error occurred while signing out.");
-  }
-};
-
-
 export default function Nav() {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isTransactionsOpen, setTransactionsOpen] = useState(false);
 
   return (
-    
     <>
       <div className="px-12 mx-auto sm:px-6 fixed w-full bg-white z-[99]">
         <div className="relative py-6 ">
@@ -154,9 +129,6 @@ export default function Nav() {
                   Sign in
                 </a>
               </div>
-              <div className="inline-flex rounded-full shadow"><button onClick={signOut}
-                  className="inline-flex items-center px-4 py-2 text-base text-gray-900 bg-white border border-transparent rounded-full cursor-pointer font-base hover:bg-gray-50 ">Sign out</button></div>
-              
             </div>
           </nav>
         </div>
