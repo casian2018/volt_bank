@@ -48,7 +48,7 @@ const Card: React.FC<CardProps> = ({ email }) => {
   return (
     <div>
       <div className="flex justify-center items-center">
-        <div className=" grid grid-cols-1 md:grid-cols-2  gap-4">
+        <div className=" grid grid-cols-1 md:grid-cols-1  gap-4">
           {cardData.cardInfo.map((card, index) => (
             <div
               key={index}
