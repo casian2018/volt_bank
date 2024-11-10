@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
-async function forexBalances(req, res) {
+export default async function forexBalances(req, res) {
   // Get the token from cookies
   const token = req.cookies.token;
 
@@ -61,4 +61,4 @@ async function forexBalances(req, res) {
   }
 }
 
-export default forexBalances;
+

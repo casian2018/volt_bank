@@ -24,11 +24,13 @@ export default async function handler(req, res) {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const cardInfo = {
+    const cardInfo = [
+      {
       number: '4' + Array.from({ length: 15 }, () => Math.floor(Math.random() * 10)).join(''),
       cvv: Array.from({ length: 3 }, () => Math.floor(Math.random() * 10)).join(''),
       pin: Array.from({ length: 4 }, () => Math.floor(Math.random() * 10)).join(''),
-    };
+      }
+    ];
 
     await users.insertOne({
       email,

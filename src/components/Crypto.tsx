@@ -159,6 +159,42 @@ const Crypto: React.FC = () => {
             }
         };
 
+        const sellCrypto = async () => {
+            const selectedCrypto = (document.getElementById("category") as HTMLSelectElement).value;
+            const spendingPrice = parseFloat((document.getElementById("price") as HTMLInputElement).value);
+            const currentPrice = parseFloat((await (await fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${selectedCrypto}USDT`)).json()).price);
+
+            if (!isNaN(spendingPrice) && !isNaN(currentPrice)) {
+            const amount = spendingPrice / currentPrice;
+
+            try {
+                const response = await fetch("/api/sell", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    symbol: selectedCrypto,
+                    amount: amount,
+                    spendingPrice: spendingPrice,
+                }),
+                });
+
+                if (!response.ok) {
+                throw new Error("Failed to sell cryptocurrency");
+                }
+
+                // Update the local state for instant feedback
+                setCryptoBalances((prevBalances) => ({
+                ...prevBalances,
+                [selectedCrypto]: (prevBalances[selectedCrypto] || 0) - amount,
+                }));
+
+                closeModal();
+            } catch (error) {
+                console.error("Error selling cryptocurrency:", error);
+            }
+            }
+        };
+
     
 
     return (
@@ -268,13 +304,22 @@ const Crypto: React.FC = () => {
                                             ></p>
                                         </div>
                                     </div>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <button
                                         type="button"
-                                        className="w-full text-white flex items-center justify-center bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                                        className="w-full text-white flex items-center justify-center bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                                         onClick={() => buyCrypto()}
                                     >
                                         Buy Crypto
                                     </button>
+                                    <button
+                                        type="button"
+                                        className="w-full text-white flex items-center justify-center bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                                        onClick={() => sellCrypto()}
+                                    >
+                                        Sell Crypto
+                                    </button>
+                                    </div>
                                 </form>
                                 
                             </div>
