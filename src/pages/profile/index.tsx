@@ -70,6 +70,8 @@ export default function ProfilePage() {
       cvv: Array.from({ length: 3 }, () => Math.floor(Math.random() * 10)).join(''),
       pin: Array.from({ length: 4 }, () => Math.floor(Math.random() * 10)).join(''),
     };
+
+    
   
     console.log("Generated card info:", cardInfo); // Log the generated card details
   
@@ -98,6 +100,8 @@ export default function ProfilePage() {
       console.error('Error creating card:', error);
       alert('An error occurred while creating the card.');
     }
+
+    window.location.reload();
   };
   
   

@@ -43,22 +43,59 @@ const Card: React.FC<CardProps> = ({ email }) => {
     }
   }, [email]);
 
+  const handleDeleteCard = async (cardNumber: string) => {
+    try {
+      const response = await fetch('/api/deleteCard', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId: email,  // Send the email as the userId
+          cardId: cardNumber,  // Send the card number as the identifier
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Remove the deleted card from the state
+        setCardData((prevData) => ({
+          ...prevData!,
+          cardInfo: prevData!.cardInfo.filter(card => card.number !== cardNumber),
+        }));
+        console.log('Card deleted successfully');
+      } else {
+        console.error('Error deleting card:', data.error);
+      }
+    } catch (error) {
+      console.error('Error occurred while deleting card:', error);
+    }
+  };
+
   if (!cardData) return <p>Loading...</p>;
 
   return (
-    <div >
-      <div className="flex justify-center items-center  ">
-        <div className=" grid grid-cols-1 md:grid-cols-1  gap-4  ">
+    <div>
+      <div className="flex justify-center items-center">
+        <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
           {cardData.cardInfo.map((card, index) => (
             <div
               key={index}
-              className="w-auto h-56 md:min-h-74 m-auto  bg-red-100 rounded-xl relative text-white shadow-2xl"
+              className="w-auto h-56 md:min-h-74 m-auto bg-red-100 rounded-xl relative text-white shadow-2xl"
             >
               <img
                 className="relative object-cover w-full h-full rounded-xl"
                 src="https://files.123freevectors.com/wp-content/original/152951-abstract-black-background-vector-illustration.jpg"
                 alt="Card Background"
+                
               />
+              <button
+                  className="absolute top-0 right-0 text-white text-xl bg-red-600 rounded-full  "
+                  onClick={() => handleDeleteCard(card.number)}
+                >
+                  &times;
+                </button>
               <div className="w-full px-8 absolute top-8">
                 <div className="flex justify-between">
                   <div>
@@ -99,6 +136,8 @@ const Card: React.FC<CardProps> = ({ email }) => {
                     </div>
                   </div>
                 </div>
+                {/* Small "X" button in the corner */}
+                
               </div>
             </div>
           ))}
