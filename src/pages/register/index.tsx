@@ -54,21 +54,26 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="h-screen flex">
-      <div className="lg:flex w-full lg:w-1/2 login_img_section justify-around items-center">
-        <div className="bg-black opacity-20 inset-0 z-0"></div>
-        <div className="w-full mx-auto px-20 flex-col items-center space-y-6">
-          <h1 className="text-white font-bold text-4xl font-sans">Volt Bank</h1>
-          <p className="text-white mt-1">Volt Bank is a digital bank offering streamlined accounts, smart financial tools, and fast online banking for easy money management.</p>
+    <div className="h-screen flex flex-col lg:flex-row">
+      {/* Left section: Image & description */}
+      <div className="lg:flex w-full lg:w-1/2 bg-gradient-to-tl from-indigo-600 to-purple-800 text-white flex justify-center items-center py-20 px-8 lg:px-20">
+        <div className="text-left w-full lg:w-3/4">
+          <h1 className="text-3xl md:text-4xl font-bold">Volt Bank</h1>
+          <p className="mt-2 text-sm md:text-base">
+          Empowering Your Digital Financial Future.
+          </p>
         </div>
       </div>
-      <div className="flex w-full lg:w-1/2 justify-center items-center bg-white space-y-8">
-        <div className="w-full px-8 md:px-32 lg:px-24">
-          <form className="bg-white rounded-md shadow-2xl p-5" onSubmit={handleSubmit}>
-            <h1 className="text-gray-800 font-bold text-2xl mb-1">Welcome to Volt Bank!</h1>
-            <p className="text-sm font-normal text-gray-600 mb-8">Create an account</p>
 
-            <div className="flex items-center border-2 mb-8 py-2 px-3 rounded-2xl">
+      {/* Right section: Registration form */}
+      <div className="flex w-full lg:w-1/2 justify-center items-center bg-white py-8 px-6 sm:px-12 lg:px-24">
+        <div className="w-full max-w-md">
+          <form className="bg-white rounded-md shadow-2xl p-6 md:p-8" onSubmit={handleSubmit}>
+            <h1 className="text-gray-800 font-bold text-2xl mb-4">Welcome to Volt Bank!</h1>
+            <p className="text-sm font-normal text-gray-600 mb-6">Create an account</p>
+
+            {/* Email input */}
+            <div className="flex items-center border-2 mb-4 py-2 px-3 rounded-2xl">
               <input
                 className="pl-2 w-full outline-none border-none"
                 type="email"
@@ -80,7 +85,8 @@ export default function RegisterPage() {
               />
             </div>
 
-            <div className="flex items-center border-2 mb-8 py-2 px-3 rounded-2xl">
+            {/* Password input */}
+            <div className="flex items-center border-2 mb-4 py-2 px-3 rounded-2xl">
               <input
                 className="pl-2 w-full outline-none border-none"
                 type="password"
@@ -92,7 +98,8 @@ export default function RegisterPage() {
               />
             </div>
 
-            <div className="flex items-center border-2 mb-8 py-2 px-3 rounded-2xl">
+            {/* First name input */}
+            <div className="flex items-center border-2 mb-4 py-2 px-3 rounded-2xl">
               <input
                 className="pl-2 w-full outline-none border-none"
                 type="text"
@@ -104,7 +111,8 @@ export default function RegisterPage() {
               />
             </div>
 
-            <div className="flex items-center border-2 mb-8 py-2 px-3 rounded-2xl">
+            {/* Last name input */}
+            <div className="flex items-center border-2 mb-4 py-2 px-3 rounded-2xl">
               <input
                 className="pl-2 w-full outline-none border-none"
                 type="text"
@@ -116,7 +124,8 @@ export default function RegisterPage() {
               />
             </div>
 
-            <div className="flex items-center border-2 mb-8 py-2 px-3 rounded-2xl">
+            {/* Address input */}
+            <div className="flex items-center border-2 mb-4 py-2 px-3 rounded-2xl">
               <input
                 className="pl-2 w-full outline-none border-none"
                 type="text"
@@ -128,7 +137,8 @@ export default function RegisterPage() {
               />
             </div>
 
-            <div className="flex items-center border-2 mb-8 py-2 px-3 rounded-2xl">
+            {/* City input */}
+            <div className="flex items-center border-2 mb-4 py-2 px-3 rounded-2xl">
               <input
                 className="pl-2 w-full outline-none border-none"
                 type="text"
@@ -140,7 +150,8 @@ export default function RegisterPage() {
               />
             </div>
 
-            <div className="flex items-center border-2 mb-8 py-2 px-3 rounded-2xl">
+            {/* Country input */}
+            <div className="flex items-center border-2 mb-4 py-2 px-3 rounded-2xl">
               <input
                 className="pl-2 w-full outline-none border-none"
                 type="text"
@@ -152,7 +163,8 @@ export default function RegisterPage() {
               />
             </div>
 
-            <div className="flex items-center border-2 mb-8 py-2 px-3 rounded-2xl">
+            {/* Phone input */}
+            <div className="flex items-center border-2 mb-4 py-2 px-3 rounded-2xl">
               <input
                 className="pl-2 w-full outline-none border-none"
                 type="tel"
@@ -164,9 +176,7 @@ export default function RegisterPage() {
               />
             </div>
 
-            
-            
-
+            {/* Birth date input */}
             <div className="flex items-center border-2 mb-8 py-2 px-3 rounded-2xl">
               <input
                 className="pl-2 w-full outline-none border-none"
@@ -179,9 +189,13 @@ export default function RegisterPage() {
               />
             </div>
 
+            {/* Submit button */}
             <button className="bg-indigo-800 text-white w-full py-2 rounded-2xl" type="submit">
               Register
             </button>
+            <div className="flex justify-between mt-4 text-sm">
+              <a href="/login" className="cursor-pointer text-indigo-600">Already have an account?</a>
+            </div>
           </form>
         </div>
       </div>
