@@ -46,45 +46,62 @@ const Card: React.FC<CardProps> = ({ email }) => {
   if (!cardData) return <p>Loading...</p>;
 
   return (
-    <div >
-      <div className=" mt-6 flex justify-center items-center">
-        <div className="space-y-16">
-          <div className="w-96 h-56 m-auto bg-red-100 rounded-xl relative text-white shadow-2xl ">
-            <img
-              className="relative object-cover w-full h-full rounded-xl"
-              src="https://i.imgur.com/Zi6v09P.png"
-              alt="Card Background"
-            />
-            <div className="w-full px-8 absolute top-8">
-              <div className="flex justify-between">
-                <div>
-                  <p className="font-semibold">Name</p>
-                  <p className="font-s tracking-widest">{`${cardData.firstName} ${cardData.lastName}`}</p>
-                </div>
-                <img className="w-14 h-14" src="https://i.imgur.com/bbPHJVe.png" alt="Bank Logo" />
-              </div>
-              <div className="pt-1">
-                <p className="font-semibold">Card Number</p>
-                <p className="font-s tracking-more-wider ">{cardData.cardInfo[0].number.replace(/\d{4}(?=.)/g, "$& ")}</p>
-              </div>
-              <div className="pt-6 pr-6">
+    <div>
+      <div className="flex justify-center items-center">
+        <div className=" grid grid-cols-1 md:grid-cols-2  gap-4">
+          {cardData.cardInfo.map((card, index) => (
+            <div
+              key={index}
+              className="w-96 h-56 m-auto  bg-red-100 rounded-xl relative text-white shadow-2xl"
+            >
+              <img
+                className="relative object-cover w-full h-full rounded-xl"
+                src="https://i.imgur.com/Zi6v09P.png"
+                alt="Card Background"
+              />
+              <div className="w-full px-8 absolute top-8">
                 <div className="flex justify-between">
                   <div>
-                    <p className="font-semibold text-xs">Valid</p>
-                    <p className="font-s tracking-wider text-sm">{cardData.cardInfo[0].validFrom || "11/15"}</p>
+                    <p className="font-semibold">Name</p>
+                    <p className="font-s tracking-widest">
+                      {`${cardData.firstName} ${cardData.lastName}`}
+                    </p>
                   </div>
-                  <div>
-                    <p className="font-semibold text-xs ">Expiry</p>
-                    <p className="font-medium tracking-wider text-sm">{cardData.cardInfo[0].expiry || "03/25"}</p>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-xs">CVV</p>
-                    <p className="font-bold tracking-more-wider text-sm">···</p>
+                  <img
+                    className="w-14 h-14"
+                    src="https://i.imgur.com/bbPHJVe.png"
+                    alt="Bank Logo"
+                  />
+                </div>
+                <div className="pt-1">
+                  <p className="font-semibold">Card Number</p>
+                  <p className="font-s tracking-more-wider">
+                    {card.number.replace(/\d{4}(?=.)/g, "$& ")}
+                  </p>
+                </div>
+                <div className="pt-6 pr-6">
+                  <div className="flex justify-between">
+                    <div>
+                      <p className="font-semibold text-xs">Valid</p>
+                      <p className="font-s tracking-wider text-sm">
+                        {card.validFrom || "11/15"}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-xs">Expiry</p>
+                      <p className="font-medium tracking-wider text-sm">
+                        {card.expiry || "03/25"}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-xs">CVV</p>
+                      <p className="font-bold tracking-more-wider text-sm">···</p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>

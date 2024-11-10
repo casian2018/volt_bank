@@ -63,6 +63,37 @@ export default function ProfilePage() {
     null
   );
 
+  const generateNewCard = async () => {
+    // Generate new card details
+    const cardInfo = {
+      number: '4' + Array.from({ length: 15 }, () => Math.floor(Math.random() * 10)).join(''),
+      cvv: Array.from({ length: 3 }, () => Math.floor(Math.random() * 10)).join(''),
+      pin: Array.from({ length: 4 }, () => Math.floor(Math.random() * 10)).join(''),
+    };
+  
+    try {
+      const response = await fetch('/api/createCard', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userId: user?.email, cardInfo }),
+      });
+  
+      if (response.ok) {
+        alert('New card created successfully!');
+        // Instead of reloading, push to profile page
+        router.push('/profile');
+      } else {
+        alert('Failed to create card.');
+      }
+    } catch (error) {
+      console.error('Error creating card:', error);
+      alert('An error occurred while creating the card.');
+    }
+  };
+  
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -157,7 +188,7 @@ export default function ProfilePage() {
                 <h2 className="text-white font-semibold text-2xl">
                   {user?.firstName}'s Account
                 </h2>
-                <p className="text-lg text-gray-200">**** **** *321</p>
+                <p className="text-lg text-gray-200">** ** *321</p>
               </div>
 
               <h2 className="text-4xl text-yellow-400 font-extrabold ml-auto">
@@ -196,7 +227,7 @@ export default function ProfilePage() {
                 <h2 className="text-white font-semibold text-2xl">
                   {user?.firstName}'s Savings Account
                 </h2>
-                <p className="text-lg text-gray-200">**** **** *321</p>
+                <p className="text-lg text-gray-200">** ** *321</p>
               </div>
 
               <h2 className="text-4xl text-yellow-400 font-extrabold ml-auto">
@@ -243,15 +274,18 @@ export default function ProfilePage() {
           </div>
         )}
 
-        <div
-          className="bg-white p-10 rounded-xl shadow-xl transform transition-all hover:scale-103 duration-500"
-          id="cards"
-        >
-          <h1 className="text-black text-3xl font-semibold mb-6">Your Cards</h1>
-          <div>
-            <Card email={user?.email || ""} />
-          </div>
-        </div>
+<div className="bg-white p-10 rounded-xl shadow-xl transform transition-all hover:scale-103 duration-500" id="cards">
+      <h1 className="text-black text-3xl font-semibold mb-6">Your Cards</h1>
+      <div>
+        <Card email={user?.email || ""} />
+      </div>
+      <button
+        onClick={generateNewCard}
+        className="mt-4 px-6 py-3 rounded-lg text-white bg-blue-500 hover:bg-blue-600 text-xs font-semibold tracking-wider transition duration-250"
+      >
+        Generate New Card
+      </button>
+    </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-6">
           {categories.map((category, index) => (
@@ -265,9 +299,37 @@ export default function ProfilePage() {
             </div>
           ))}
         </div>
+        <div className="bg-white p-6 rounded-xl border border-gray-50 shadow-lg" id="transactions">
+          <h1 className="text-3xl font-semibold text-gray-800 mb-6">Transactions</h1>
+          <table className="min-w-full divide-y divide-gray-200 mt-6">
+            <thead className="bg-gray-100">
+              <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Name
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Price
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Type
+                </th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {user &&
+                Object.entries(user.transactions.cash).map(([key, transaction]) => (
+                  <tr key={key} className="hover:bg-gray-50 transition duration-200">
+                    <td className="px-6 py-4 text-sm text-gray-900">{transaction.name}</td>
+                    <td className="px-6 py-4 text-sm text-gray-900">${transaction.price}</td>
+                    <td className="px-6 py-4 text-sm text-gray-900">{transaction.type}</td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
 
         <Footer />
-      </div>
     </main>
   );
 }
