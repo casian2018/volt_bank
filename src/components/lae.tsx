@@ -1,59 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
-// Add custom styles for centering content
-const containerStyle: React.CSSProperties = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  height: '100vh',
-  backgroundColor: '#f7f7f7', // light background color
-  flexDirection: 'column',
-  fontFamily: 'Arial, sans-serif',
-};
-
-const buttonStyle: React.CSSProperties = {
-  padding: '10px 20px',
-  margin: '10px',
-  fontSize: '16px',
-  backgroundColor: '#4CAF50',
-  color: 'white',
-  border: 'none',
-  borderRadius: '5px',
-  cursor: 'pointer',
-  transition: 'background-color 0.3s ease',
-};
-
-const buttonHoverStyle: React.CSSProperties = {
-  ...buttonStyle,
-  backgroundColor: '#45a049',
-};
-
-const resultStyle: React.CSSProperties = {
-  textAlign: 'center',
-  fontSize: '18px',
-  fontWeight: 'bold',
-  marginTop: '20px',
-  color: '#333',
-};
-
-const titleStyle: React.CSSProperties = {
-  fontSize: '24px',
-  fontWeight: 'bold',
-  marginBottom: '20px',
-};
-
-const questionStyle: React.CSSProperties = {
-  fontSize: '20px',
-  marginBottom: '20px',
-  textAlign: 'center',
-};
-
 const Lae: React.FC = () => {
   const [categories, setCategories] = useState<{ [key: string]: any[] }>({});
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedQuestionIndex, setSelectedQuestionIndex] = useState<number>(0);
   const [showResult, setShowResult] = useState<boolean>(false);
   const [correctAnswers, setCorrectAnswers] = useState<number>(0);
+  const [completedCategories, setCompletedCategories] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -65,7 +18,6 @@ const Lae: React.FC = () => {
         console.error('Error fetching categories:', error);
       }
     };
-
     fetchCategories();
   }, []);
 
@@ -77,20 +29,17 @@ const Lae: React.FC = () => {
   };
 
   const handleAnswerSelection = (isCorrect: boolean) => {
-    if (isCorrect) {
-      setCorrectAnswers(correctAnswers + 1);
-    }
+    if (isCorrect) setCorrectAnswers(prev => prev + 1);
+    
     if (selectedCategory && selectedQuestionIndex < categories[selectedCategory].length - 1) {
-      setSelectedQuestionIndex(selectedQuestionIndex + 1);
+      setSelectedQuestionIndex(prev => prev + 1);
     } else {
       setShowResult(true);
+      setCompletedCategories(new Set(completedCategories).add(selectedCategory!));
 
-      // Update the user's balance
       fetch('/api/lae', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
       })
         .then(response => response.json())
         .then(data => console.log(data))
@@ -99,17 +48,16 @@ const Lae: React.FC = () => {
   };
 
   if (!selectedCategory) {
+    const availableCategories = Object.keys(categories).filter(category => !completedCategories.has(category));
+
     return (
-      <div style={containerStyle}>
-        <h1 style={titleStyle}>Select a Category</h1>
-        {Object.keys(categories).map(category => (
+      <div className="flex flex-col items-center justify-center h-screen bg-gray-100 text-gray-800 font-sans">
+        <h1 className="text-2xl font-bold mb-6">Select a Quiz</h1>
+        {availableCategories.map(category => (
           <button
             key={category}
-            style={buttonStyle}
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#45a049')}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#4CAF50')}
+            className="px-4 py-2 m-2 text-lg font-semibold text-white bg-green-600 rounded hover:bg-green-700 transition-colors capitalize gap-4"
             onClick={() => handleCategorySelection(category)}
-            className='capitalize'
           >
             {category}
           </button>
@@ -122,28 +70,28 @@ const Lae: React.FC = () => {
 
   if (showResult) {
     return (
-      <div style={containerStyle}>
-        <h1 style={titleStyle}>Quiz Completed</h1>
-        <p style={resultStyle}>You answered {correctAnswers} questions correctly!</p>
+      <div className="flex flex-col items-center justify-center h-screen bg-gray-100 text-gray-800 font-sans">
+        <h1 className="text-2xl font-bold mb-4">Quiz Completed</h1>
+        <p className="text-lg font-semibold">You answered {correctAnswers} questions correctly!</p>
       </div>
     );
   }
 
   return (
-    <div style={containerStyle}>
-      <h1 style={titleStyle} className="capitalize">{selectedCategory} Quiz</h1>
-      <p style={questionStyle}>{question.question}</p>
-      {question.answers.map((answer: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined, index: React.Key | null | undefined) => (
-        <button
-          key={index}
-          style={buttonStyle}
-          onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#45a049')}
-          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#4CAF50')}
-          onClick={() => handleAnswerSelection(answer === question.correct)}
-        >
-          {answer}
-        </button>
-      ))}
+    <div className="flex flex-col items-center justify-center h-screen bg-gray-100 text-gray-800 font-sans">
+      <h1 className="text-2xl font-bold mb-4 capitalize">{selectedCategory} Quiz</h1>
+      <p className="text-lg text-center mb-6">{question.question}</p>
+      <div className="space-y-4">
+        {question.answers.map((answer: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined, index: React.Key | null | undefined) => (
+          <button
+            key={index}
+            className="px-4 py-2 text-lg font-medium bg-green-600 text-white rounded hover:bg-green-700 transition-colors mx-4"
+            onClick={() => handleAnswerSelection(answer === question.correct)}
+          >
+            {answer}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };

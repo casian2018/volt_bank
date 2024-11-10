@@ -1,15 +1,18 @@
 "use client";
+import Nav from "../../components/nav";
+import Footer from "@/components/footer";
 
 export default function TermsPage() {
   return (
     <>
-      <div className="bg-white text-black dark:bg-black dark:text-white">
+    <Nav />
+      <div className="bg-white text-black pt-24">
         <div className="container mx-auto px-4 py-8">
           <h2 className="text-sm font-medium text-gray-500 mb-2">
             Effective Date: 2024-07-15
           </h2>
           <div className="w-full flex">
-            <h1 className="text-3xl font-bold mb-4 text-blue-900 dark:text-orange-400">
+            <h1 className="text-3xl font-bold mb-4 text-blue-900">
               Terms of Service for Your Business
             </h1>
           </div>
@@ -19,7 +22,7 @@ export default function TermsPage() {
           
           {/* Section: General Terms */}
           <div className="pb-5">
-            <h2 className="font-bold text-lg text-blue-800 dark:text-orange-300 mb-2">
+            <h2 className="font-bold text-lg text-blue-800 mb-2">
               General
             </h2>
             <ul className="list-disc pl-5 space-y-4">
@@ -60,6 +63,7 @@ export default function TermsPage() {
 
         </div>
       </div>
+      <Footer />
     </>
   );
 }

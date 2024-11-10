@@ -29,16 +29,20 @@ async function handler(req, res) {
 
             const client = await clientPromise;
             const db = client.db('volt_bank');
-            const user = await db.collection('users').findOne({ email }, { projection: { _id: 0 } });
+            const user = await db.collection('users').findOne({ email }, { projection: { _id: 0, hasResponded: 1 } });
 
             if (!user) {
                 return res.status(404).json({ message: 'User not found' });
             }
 
-            // Add 5 to the user's balance
+            if (user.hasResponded) {
+                return res.status(400).json({ message: 'User has already responded' });
+            }
+
+            // Add 5 to the user's balance and set hasResponded to true
             await db.collection('users').updateOne(
                 { email },
-                { $inc: { balance: 5 } }
+                { $inc: { balance: 5 }, $set: { hasResponded: true } }
             );
 
             return res.status(200).json({ message: 'Balance updated successfully' });
