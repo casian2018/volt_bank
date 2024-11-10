@@ -1,4 +1,3 @@
-// pages/api/login.js
 import clientPromise from '../../pages/api/mongodb';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
@@ -39,9 +38,24 @@ export default async function handler(req, res) {
     const token = jwt.sign({ email: user.email }, JWT_SECRET, { expiresIn: '1h' });
 
     // Set the token in an HTTP-only cookie for security
-    res.setHeader('Set-Cookie', `token=${token}; HttpOnly; Path=/; Max-Age=3600; Secure; SameSite=Strict`);
+    const cookieOptions = {
+      httpOnly: true,
+      path: '/',
+      maxAge: 3600, // 1 hour
+      sameSite: 'Strict',
+    };
 
-    res.status(200).json({ message: 'Login successful' });
+    // Add the Secure flag only in production
+    if (process.env.NODE_ENV === 'production') {
+      cookieOptions.secure = true; // Ensure cookies are sent only over HTTPS
+    }
+
+    res.setHeader('Set-Cookie', `token=${token}; ${Object.entries(cookieOptions).map(([key, value]) => `${key}=${value}`).join('; ')}`);
+    
+    res.status(200).json({
+      message: 'Login successful',
+      user: { firstName: user.firstName, lastName: user.lastName, email: user.email },
+    });
 
   } catch (error) {
     console.error('Error during login:', error);
