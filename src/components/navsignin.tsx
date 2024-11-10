@@ -100,6 +100,15 @@ export default function Nav() {
               <li><a href="/stocks" className="text-base font-normal text-gray-500 list-none hover:text-gray-900">Stocks</a></li>
               <li><a href="/forex" className="text-base font-normal text-gray-500 list-none hover:text-gray-900">Forex</a></li>
               <li><a href="/contact" className="text-base font-normal text-gray-500 list-none hover:text-gray-900">Contact</a></li>
+              <li>
+                <a
+                  href="/learn"
+                  className="text-base font-normal text-gray-500 list-none hover:text-gray-900"
+                  target=""
+                >
+                  Learn 
+                </a>
+              </li>
             </div>
 
             <div className="hidden md:absolute md:flex md:items-center md:justify-end md:inset-y-0 md:right-0">

@@ -119,6 +119,15 @@ export default function Nav() {
                   Contact
                 </a>
               </li>
+              <li>
+                <a
+                  href="/learn"
+                  className="text-base font-normal text-gray-500 list-none hover:text-gray-900"
+                  target=""
+                >
+                  Learn 
+                </a>
+              </li>
             </div>
           
           </nav>

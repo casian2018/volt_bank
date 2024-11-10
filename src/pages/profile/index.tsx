@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/router";
-import Nav from "../../components/navsignin";
+import Nav from "../../components/navsignout";
 import Card from "../../components/card";
 import Footer from "../../components/footer"; // Correct import for Footer component
 import { useEffect, useState } from "react";
