@@ -235,16 +235,16 @@ export default function ProfilePage() {
               </a>
               
             </div>
-            <div id="cards " >
+            <div id="cards"  >
       <h1 className="text-white text-3xl font-semibold mb-6 mt-8">Your Cards</h1>
       <div className=" mt-8" >
         <Card email={user?.email || ""} />
       </div>  
       <button
         onClick={generateNewCard}
-        className="mt-4 px-4 py-3 rounded-lg text-white bg-blue-500 hover:bg-blue-600 text-xs font-semibold tracking-wider transition duration-250"
+        className="mt-8 px-6 py-3 rounded-lg text-white bg-blue-500 hover:bg-blue-600 text-xs font-semibold tracking-wider transition duration-250"
       >
-        Generate New Card
+        Get a new card
       </button>
       
     </div>
@@ -284,7 +284,20 @@ export default function ProfilePage() {
               </button>
             </div>
           </div>
+          <div className="grid grid-cols-1  lg:grid-cols-1 xl:grid-cols-2 gap-8 mt-6">
+          {categories.map((category, index) => (
+            <div
+              key={index}
+              className="flex flex-col bg-gray-50 p-6 rounded-xl shadow-md hover:scale-105 transition-all duration-200"
+            >
+              <h3 className="text-lg font-semibold">{category.type}</h3>
+              <p className="text-sm text-gray-500">Total: ${category.total}</p>
+              <p className="text-sm text-gray-400">Last Transaction: {category.lastTransaction}</p>
+            </div>
+          ))}
         </div>
+        </div>
+        
         </div>
 
         {isTransferFormOpen && (
@@ -312,25 +325,15 @@ export default function ProfilePage() {
                 Close
               </button>
             </div>
+            
           </div>
         )}
 
 
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-6">
-          {categories.map((category, index) => (
-            <div
-              key={index}
-              className="flex flex-col bg-gray-50 p-6 rounded-xl shadow-md hover:scale-105 transition-all duration-200"
-            >
-              <h3 className="text-lg font-semibold">{category.type}</h3>
-              <p className="text-sm text-gray-500">Total: ${category.total}</p>
-              <p className="text-sm text-gray-400">Last Transaction: {category.lastTransaction}</p>
-            </div>
-          ))}
-        </div>
+        
         <div className="bg-white p-6 rounded-xl border border-gray-50 shadow-lg" id="transactions">
-          <h1 className="text-3xl font-semibold text-gray-800 mb-6">Transactions</h1>
+          <h1 className="text-3xl font-semibold text-gray-800 mb-6">Last transactions</h1>
           <table className="min-w-full divide-y divide-gray-200 mt-6">
             <thead className="bg-gray-100">
               <tr>
