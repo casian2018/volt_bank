@@ -64,7 +64,6 @@ export default function ProfilePage() {
   );
 
   const generateNewCard = async () => {
-    // Generate new card details
     const cardInfo = {
       number: '4' + Array.from({ length: 15 }, () => Math.floor(Math.random() * 10)).join(''),
       cvv: Array.from({ length: 3 }, () => Math.floor(Math.random() * 10)).join(''),
@@ -82,8 +81,7 @@ export default function ProfilePage() {
   
       if (response.ok) {
         alert('New card created successfully!');
-        // Instead of reloading, push to profile page
-        router.push('/profile');
+        router.push('/profile'); // Redirect to reload data
       } else {
         alert('Failed to create card.');
       }
@@ -92,6 +90,8 @@ export default function ProfilePage() {
       alert('An error occurred while creating the card.');
     }
   };
+  
+  
   
 
   useEffect(() => {
@@ -332,4 +332,8 @@ export default function ProfilePage() {
         <Footer />
     </main>
   );
+}
+
+function fetchUserData() {
+  throw new Error("Function not implemented.");
 }
