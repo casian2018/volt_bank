@@ -1,6 +1,6 @@
 import React from 'react';
 import Lae from '../components/lae';
-import Nav from '../components/nav';
+import Nav from '../components/navsignout';
 import Footer from '../components/footer';
 
 export default function LearnPage() {
