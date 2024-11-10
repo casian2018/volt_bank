@@ -7,8 +7,8 @@ export default function Home() {
       <Nav />
 
       <div className="flex flex-col items-center justify-center mb-36 px-4 sm:px-0">
-        <div className="flex flex-col items-center justify-center text-center px-48 min-h-screen">
-          <h1 className="mx-auto max-w-4xl font-display text-5xl font-bold tracking-normal text-slate-900 sm:text-7xl">
+        <div className="flex flex-col items-center justify-center text-center px-48 min-h-screen max-sm:mt-8">
+          <h1 className="mx-auto max-w-4xl font-display text-6xl font-bold tracking-normal text-slate-900 max-sm:text-3xl  max-sm:mt-4">
             Make your money work for you with
             <span className="relative whitespace-nowrap text-orange-400">
               <svg
@@ -38,15 +38,15 @@ export default function Home() {
 
         <div className="flex flex-col">
           <div className="flex flex-wrap justify-center gap-32 mb-4">
-            <img src="haufe.png" className="w-[200px]" />
-            <img src="nokia.png" className="w-[200px]" />
-            <img src="access.png" className="w-[200px]" />
+            <img src="/haufe.png" className="w-[200px]" alt="Haufe" />
+            <img src="/nokia.png" className="w-[200px]" alt="Nokia" />
+            <img src="/access.png" className="w-[200px]" alt="Access" />
           </div>
 
           <div className="flex flex-wrap justify-center gap-32">
-            <img src="faber.png" className="w-[200px]" />
-            <img src="tm.png" className="w-[200px]" />
-            <img src="pebune.png" className="w-[200px]" />
+            <img src="/faber.png" className="w-[200px]" alt="Faber" />
+            <img src="/tm.png" className="w-[200px]" alt="TM" />
+            <img src="/pebune.png" className="w-[200px]" alt="Pebune" />
           </div>
         </div>
 
@@ -57,7 +57,7 @@ export default function Home() {
         >
           <div className="mx-auto min-w-full px-4 sm:px-6 lg:px-8 ">
             <div className="mx-auto max-w-2xl md:text-center">
-              <h2 className="font-display text-3xl tracking-tight text-slate-900 sm:text-4xl">
+              <h2 className="font-display text-3xl tracking-tight text-slate-900  sm:text-4xl mb-8">
                 What Our Customers Are Saying
               </h2>
             </div>
@@ -65,7 +65,7 @@ export default function Home() {
               role="list"
               className="mx-auto grid max-w-2xl grid-cols-1 gap-6 sm:gap-8 lg:mt-20 lg:max-w-none lg:grid-cols-3"
             >
-              {/* Repeat this block for each testimonial */}
+              {/* Testimonial 1 */}
               <li>
                 <ul role="list" className="flex flex-col gap-y-6 sm:gap-y-8">
                   <li>
@@ -101,6 +101,7 @@ export default function Home() {
                   </li>
                 </ul>
               </li>
+              {/* Testimonial 2 */}
               <li>
                 <ul role="list" className="flex flex-col gap-y-6 sm:gap-y-8">
                   <li>
@@ -136,6 +137,7 @@ export default function Home() {
                   </li>
                 </ul>
               </li>
+              {/* Testimonial 3 */}
               <li>
                 <ul role="list" className="flex flex-col gap-y-6 sm:gap-y-8">
                   <li>
@@ -276,12 +278,12 @@ export default function Home() {
                   </li>
                 </ul>
               </li>
-              {/* Repeat for other testimonials */}
             </ul>
           </div>
         </section>
-        <Footer />
       </div>
+
+      <Footer />
     </>
   );
 }
