@@ -150,9 +150,36 @@ export default function ProfilePage() {
     fetchTransactions();
   }, []);
 
-  if (loading) return <p className="text-center text-lg font-semibold">Loading user data...</p>;
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const response = await fetch("/api/checkAuth", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Not authenticated");
+        }
+
+        setLoading(false); // Authenticated, proceed with page load
+      } catch (err) {
+        setError("You need to log in.");
+        router.push("/login"); // Redirect to login page if not authenticated
+      }
+    };
+
+    checkAuth();
+  }, [router]);
+
+  if (loading) return <p className="text-center">Loading...</p>;
   if (error) return <p className="text-center text-red-500 font-semibold">{error}</p>;
-  if (transactionsError) return <p className="text-center text-red-500 font-semibold">{transactionsError}</p>;
+
+
+
 
   return (
     <main className="w-full bg-gray-50">
