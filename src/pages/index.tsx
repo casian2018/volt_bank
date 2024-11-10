@@ -1,4 +1,4 @@
-import Nav from "../components/nav";
+import Nav from "../components/navsignin";
 import Footer from "../components/footer";
 
 export default function Home() {
@@ -7,8 +7,8 @@ export default function Home() {
       <Nav />
 
       <div className="flex flex-col items-center justify-center mb-36 px-4 sm:px-0">
-        <div className="flex flex-col items-center justify-center text-center px-48 min-h-screen">
-          <h1 className="mx-auto max-w-4xl font-display text-5xl font-bold tracking-normal text-slate-900 sm:text-7xl">
+        <div className="flex flex-col items-center justify-center text-center px-48 min-h-screen max-sm:mt-8">
+          <h1 className="mx-auto max-w-4xl font-display text-6xl font-bold tracking-normal text-slate-900 max-sm:text-3xl  max-sm:mt-4">
             Make your money work for you with
             <span className="relative whitespace-nowrap text-orange-400">
               <svg
@@ -38,15 +38,15 @@ export default function Home() {
 
         <div className="flex flex-col">
           <div className="flex flex-wrap justify-center gap-32 mb-4">
-            <img src="haufe.png" className="w-[200px]" />
-            <img src="nokia.png" className="w-[200px]" />
-            <img src="access.png" className="w-[200px]" />
+            <img src="/haufe.png" className="w-[200px]" alt="Haufe" />
+            <img src="/nokia.png" className="w-[200px]" alt="Nokia" />
+            <img src="/access.png" className="w-[200px]" alt="Access" />
           </div>
 
           <div className="flex flex-wrap justify-center gap-32">
-            <img src="faber.png" className="w-[200px]" />
-            <img src="tm.png" className="w-[200px]" />
-            <img src="pebune.png" className="w-[200px]" />
+            <img src="/faber.png" className="w-[200px]" alt="Faber" />
+            <img src="/tm.png" className="w-[200px]" alt="TM" />
+            <img src="/pebune.png" className="w-[200px]" alt="Pebune" />
           </div>
         </div>
 
@@ -57,7 +57,7 @@ export default function Home() {
         >
           <div className="mx-auto min-w-full px-4 sm:px-6 lg:px-8 ">
             <div className="mx-auto max-w-2xl md:text-center">
-              <h2 className="font-display text-3xl tracking-tight text-slate-900 sm:text-4xl">
+              <h2 className="font-display text-3xl tracking-tight text-slate-900  sm:text-4xl mb-8">
                 What Our Customers Are Saying
               </h2>
             </div>
@@ -65,124 +65,159 @@ export default function Home() {
               role="list"
               className="mx-auto grid max-w-2xl grid-cols-1 gap-6 sm:gap-8 lg:mt-20 lg:max-w-none lg:grid-cols-3"
             >
-              {/* Repeat this block for each testimonial */}
+              {/* Testimonial 1 */}
               <li>
-                <ul role="list" className="flex flex-col gap-y-6 sm:gap-y-8">
-                  <li>
-                    <figure className="relative rounded-2xl bg-white p-6 shadow-xl shadow-slate-900/10">
-                      <svg
-                        aria-hidden="true"
-                        width="105"
-                        height="78"
-                        className="absolute left-6 top-6 fill-slate-100"
-                      >
-                        <path d="M25.086 77.292c-4.821 0-9.115-1.205-12.882-3.616-3.767-2.561-6.78-6.102-9.04-10.622C1.054 58.534 0 53.411 0 47.686c0-5.273.904-10.396 2.712-15.368 1.959-4.972 4.746-9.567 8.362-13.786a59.042 59.042 0 0 1 12.43-11.3C28.325 3.917 33.599 1.507 39.324 0l11.074 13.786c-6.479 2.561-11.677 5.951-15.594 10.17-3.767 4.219-5.65 7.835-5.65 10.848 0 1.356.377 2.863 1.13 4.52.904 1.507 2.637 3.089 5.198 4.746 3.767 2.41 6.328 4.972 7.684 7.684 1.507 2.561 2.26 5.5 2.26 8.814 0 5.123-1.959 9.19-5.876 12.204-3.767 3.013-8.588 4.52-14.464 4.52Zm54.24 0c-4.821 0-9.115-1.205-12.882-3.616-3.767-2.561-6.78-6.102-9.04-10.622-2.11-4.52-3.164-9.643-3.164-15.368 0-5.273.904-10.396 2.712-15.368 1.959-4.972 4.746-9.567 8.362-13.786a59.042 59.042 0 0 1 12.43-11.3C82.565 3.917 87.839 1.507 93.564 0l11.074 13.786c-6.479 2.561-11.677 5.951-15.594 10.17-3.767 4.219-5.65 7.835-5.65 10.848 0 1.356.377 2.863 1.13 4.52.904 1.507 2.637 3.089 5.198 4.746 3.767 2.41 6.328 4.972 7.684 7.684 1.507 2.561 2.26 5.5 2.26 8.814 0 5.123-1.959 9.19-5.876 12.204-3.767 3.013-8.588 4.52-14.464 4.52Z"></path>
-                      </svg>
-                      <blockquote className="relative">
-                        <p className="text-lg tracking-tight text-slate-900">
-                          As a business professional, I rely on high-quality
-                          financial services to manage my accounts. This bank
-                          offers a great selection of top-notch solutions.
-                        </p>
-                      </blockquote>
-                      <figcaption className="relative mt-6 flex items-center justify-between border-t border-slate-100 pt-6">
-                        <div>
-                          <div className="font-display text-base text-slate-900">
-                            Sheryl Berge
-                          </div>
-                        </div>
-                        <div className="overflow-hidden rounded-full bg-slate-50">
-                          <img
-                            alt=""
-                            className="h-14 w-14 object-cover"
-                            src="https://randomuser.me/api/portraits/men/15.jpg"
-                          />
-                        </div>
-                      </figcaption>
-                    </figure>
-                  </li>
-                </ul>
+                <figure className="relative rounded-2xl bg-white p-6 shadow-xl shadow-slate-900/10">
+                  
+                  <blockquote className="mt-10">
+                    <p className="text-lg text-slate-900">
+                      “Volt Bank makes managing finances so much easier. The
+                      interface is so user-friendly and the features are
+                      incredibly helpful.”
+                    </p>
+                  </blockquote>
+                  <figcaption className="mt-6 flex items-center gap-x-4">
+                    <div className="flex-shrink-0">
+                      <img
+                        className="h-14 w-14 rounded-full"
+                        src="/icon10.jpg"
+                        alt="Customer 1"
+                      />
+                    </div>
+                    <div className="space-y-1.5 font-medium">
+                      <p className="text-slate-900">Gheorghe Hagi</p>
+                      <p className="text-slate-600">Manager of Liga I club Farul Constanta</p>
+                    </div>
+                    <path d="M25.086 77.292c-4.821 0-9.115-1.205-12.882-3.616-3.767-2.561-6.78-6.102-9.04-10.622C1.054 58.534 0 53.411 0 47.686c0-5.273.904-10.396 2.712-15.368 1.959-4.972 4.746-9.567 8.362-13.786a59.042 59.042 0 0 1 12.43-11.3C28.325 3.917 33.599 1.507 39.324 0l11.074 13.786c-6.479 2.561-11.677 5.951-15.594 10.17-3.767 4.219-5.65 7.835-5.65 10.848 0 1.356.377 2.863 1.13 4.52.904 1.507 2.637 3.089 5.198 4.746 3.767 2.41 6.328 4.972 7.684 7.684 1.507 2.561 2.26 5.5 2.26 8.814 0 5.123-1.959 9.19-5.876 12.204-3.767 3.013-8.588 4.52-14.464 4.52Zm54.24 0c-4.821 0-9.115-1.205-12.882-3.616-3.767-2.561-6.78-6.102-9.04-10.622-2.11-4.52-3.164-9.643-3.164-15.368 0-5.273.904-10.396 2.712-15.368 1.959-4.972 4.746-9.567 8.362-13.786a59.042 59.042 0 0 1 12.43-11.3C82.599 1.507 88.324 0l11.074 13.786c-6.479 2.561-11.677 5.951-15.594 10.17-3.767 4.219-5.65 7.835-5.65 10.848 0 1.356.377 2.863 1.13 4.52.904 1.507 2.637 3.089 5.198 4.746 3.767 2.41 6.328 4.972 7.684 7.684 1.507 2.561 2.26 5.5 2.26 8.814 0 5.123-1.959 9.19-5.876 12.204-3.767 3.013-8.588 4.52-14.464 4.52Z"></path>
+                  </figcaption>
+                </figure>
               </li>
+              {/* Testimonial 2 */}
               <li>
-                <ul role="list" className="flex flex-col gap-y-6 sm:gap-y-8">
-                  <li>
-                    <figure className="relative rounded-2xl bg-white p-6 shadow-xl shadow-slate-900/10">
-                      <svg
-                        aria-hidden="true"
-                        width="105"
-                        height="78"
-                        className="absolute left-6 top-6 fill-slate-100"
-                      >
-                        <path d="M25.086 77.292c-4.821 0-9.115-1.205-12.882-3.616-3.767-2.561-6.78-6.102-9.04-10.622C1.054 58.534 0 53.411 0 47.686c0-5.273.904-10.396 2.712-15.368 1.959-4.972 4.746-9.567 8.362-13.786a59.042 59.042 0 0 1 12.43-11.3C28.325 3.917 33.599 1.507 39.324 0l11.074 13.786c-6.479 2.561-11.677 5.951-15.594 10.17-3.767 4.219-5.65 7.835-5.65 10.848 0 1.356.377 2.863 1.13 4.52.904 1.507 2.637 3.089 5.198 4.746 3.767 2.41 6.328 4.972 7.684 7.684 1.507 2.561 2.26 5.5 2.26 8.814 0 5.123-1.959 9.19-5.876 12.204-3.767 3.013-8.588 4.52-14.464 4.52Zm54.24 0c-4.821 0-9.115-1.205-12.882-3.616-3.767-2.561-6.78-6.102-9.04-10.622-2.11-4.52-3.164-9.643-3.164-15.368 0-5.273.904-10.396 2.712-15.368 1.959-4.972 4.746-9.567 8.362-13.786a59.042 59.042 0 0 1 12.43-11.3C82.565 3.917 87.839 1.507 93.564 0l11.074 13.786c-6.479 2.561-11.677 5.951-15.594 10.17-3.767 4.219-5.65 7.835-5.65 10.848 0 1.356.377 2.863 1.13 4.52.904 1.507 2.637 3.089 5.198 4.746 3.767 2.41 6.328 4.972 7.684 7.684 1.507 2.561 2.26 5.5 2.26 8.814 0 5.123-1.959 9.19-5.876 12.204-3.767 3.013-8.588 4.52-14.464 4.52Z"></path>
-                      </svg>
-                      <blockquote className="relative">
-                        <p className="text-lg tracking-tight text-slate-900">
-                          As a business professional, I rely on high-quality
-                          financial services to manage my accounts. This bank
-                          offers a great selection of top-notch solutions.
-                        </p>
-                      </blockquote>
-                      <figcaption className="relative mt-6 flex items-center justify-between border-t border-slate-100 pt-6">
-                        <div>
-                          <div className="font-display text-base text-slate-900">
-                            Sheryl Berge
-                          </div>
-                        </div>
-                        <div className="overflow-hidden rounded-full bg-slate-50">
-                          <img
-                            alt=""
-                            className="h-14 w-14 object-cover"
-                            src="https://randomuser.me/api/portraits/men/15.jpg"
-                          />
-                        </div>
-                      </figcaption>
-                    </figure>
-                  </li>
-                </ul>
+                <figure className="relative rounded-2xl bg-white p-6 shadow-xl shadow-slate-900/10">
+                  <blockquote className="mt-10">
+                    <p className="text-lg text-slate-900">
+                      “The financial tools have helped me make smarter
+                      investment decisions. I can track my spending easily!”
+                    </p>
+                  </blockquote>
+                  <figcaption className="mt-6 flex items-center gap-x-4">
+                    <div className="flex-shrink-0">
+                      <img
+                        className="h-14 w-14 rounded-full"
+                        src="/icon9.png"
+                        alt="Customer 2"
+                      />
+                    </div>
+                    <div className="space-y-1.5 font-medium">
+                      <p className="text-slate-900">Amba Tucan</p>
+                      <p className="text-slate-600">Investor & Entrepreneur</p>
+                    </div>
+                  </figcaption>
+                </figure>
               </li>
+              {/* Testimonial 3 */}
               <li>
-                <ul role="list" className="flex flex-col gap-y-6 sm:gap-y-8">
-                  <li>
-                    <figure className="relative rounded-2xl bg-white p-6 shadow-xl shadow-slate-900/10">
-                      <svg
-                        aria-hidden="true"
-                        width="105"
-                        height="78"
-                        className="absolute left-6 top-6 fill-slate-100"
-                      >
-                        <path d="M25.086 77.292c-4.821 0-9.115-1.205-12.882-3.616-3.767-2.561-6.78-6.102-9.04-10.622C1.054 58.534 0 53.411 0 47.686c0-5.273.904-10.396 2.712-15.368 1.959-4.972 4.746-9.567 8.362-13.786a59.042 59.042 0 0 1 12.43-11.3C28.325 3.917 33.599 1.507 39.324 0l11.074 13.786c-6.479 2.561-11.677 5.951-15.594 10.17-3.767 4.219-5.65 7.835-5.65 10.848 0 1.356.377 2.863 1.13 4.52.904 1.507 2.637 3.089 5.198 4.746 3.767 2.41 6.328 4.972 7.684 7.684 1.507 2.561 2.26 5.5 2.26 8.814 0 5.123-1.959 9.19-5.876 12.204-3.767 3.013-8.588 4.52-14.464 4.52Zm54.24 0c-4.821 0-9.115-1.205-12.882-3.616-3.767-2.561-6.78-6.102-9.04-10.622-2.11-4.52-3.164-9.643-3.164-15.368 0-5.273.904-10.396 2.712-15.368 1.959-4.972 4.746-9.567 8.362-13.786a59.042 59.042 0 0 1 12.43-11.3C82.565 3.917 87.839 1.507 93.564 0l11.074 13.786c-6.479 2.561-11.677 5.951-15.594 10.17-3.767 4.219-5.65 7.835-5.65 10.848 0 1.356.377 2.863 1.13 4.52.904 1.507 2.637 3.089 5.198 4.746 3.767 2.41 6.328 4.972 7.684 7.684 1.507 2.561 2.26 5.5 2.26 8.814 0 5.123-1.959 9.19-5.876 12.204-3.767 3.013-8.588 4.52-14.464 4.52Z"></path>
-                      </svg>
-                      <blockquote className="relative">
-                        <p className="text-lg tracking-tight text-slate-900">
-                          As a business professional, I rely on high-quality
-                          financial services to manage my accounts. This bank
-                          offers a great selection of top-notch solutions.
-                        </p>
-                      </blockquote>
-                      <figcaption className="relative mt-6 flex items-center justify-between border-t border-slate-100 pt-6">
-                        <div>
-                          <div className="font-display text-base text-slate-900">
-                            Sheryl Berge
-                          </div>
-                        </div>
-                        <div className="overflow-hidden rounded-full bg-slate-50">
-                          <img
-                            alt=""
-                            className="h-14 w-14 object-cover"
-                            src="https://randomuser.me/api/portraits/men/15.jpg"
-                          />
-                        </div>
-                      </figcaption>
-                    </figure>
-                  </li>
-                </ul>
+                <figure className="relative rounded-2xl bg-white p-6 shadow-xl shadow-slate-900/10">
+                  <blockquote className="mt-10">
+                    <p className="text-lg text-slate-900">
+                      “I love how easy it is to manage all my accounts in one
+                      place. Volt Bank's app has everything I need.”
+                    </p>
+                  </blockquote>
+                  <figcaption className="mt-6 flex items-center gap-x-4">
+                    <div className="flex-shrink-0">
+                      <img
+                        className="h-14 w-14 rounded-full"
+                        src="/icon15.webp"
+                        alt="Customer 3"
+                      />
+                    </div>
+                    <div className="space-y-1.5 font-medium">
+                      <p className="text-slate-900">Floarea Dragomir</p>
+                      <p className="text-slate-600">Product Manager</p>
+                    </div>
+                  </figcaption>
+                </figure>
               </li>
-              {/* Repeat for other testimonials */}
+
+              {/* Testimonial 4 */}
+              <li>
+                <figure className="relative rounded-2xl bg-white p-6 shadow-xl shadow-slate-900/10">
+                  <blockquote className="mt-10">
+                    <p className="text-lg text-slate-900">
+                      “Volt Bank's customer support is top-notch. They helped me resolve an issue quickly, and I felt supported every step of the way.”
+                    </p>
+                  </blockquote>
+                  <figcaption className="mt-6 flex items-center gap-x-4">
+                    <div className="flex-shrink-0">
+                      <img
+                        className="h-14 w-14 rounded-full"
+                        src="/icon14.jpg"
+                        alt="Customer 4"
+                      />
+                    </div>
+                    <div className="space-y-1.5 font-medium">
+                      <p className="text-slate-900">Cazian Qprea</p>
+                      <p className="text-slate-600">Software Engineer</p>
+                    </div>
+                  </figcaption>
+                </figure>
+              </li>
+
+              {/* Testimonial 5 */}
+              <li>
+                <figure className="relative rounded-2xl bg-white p-6 shadow-xl shadow-slate-900/10">
+                  <blockquote className="mt-10">
+                    <p className="text-lg text-slate-900">
+                      “I appreciate how fast and simple it is to transfer money with Volt Bank. I can handle everything on the go, no stress.”
+                    </p>
+                  </blockquote>
+                  <figcaption className="mt-6 flex items-center gap-x-4">
+                    <div className="flex-shrink-0">
+                      <img
+                        className="h-14 w-14 rounded-full"
+                        src="/icon13.jpg"
+                        alt="Customer 5"
+                      />
+                    </div>
+                    <div className="space-y-1.5 font-medium">
+                      <p className="text-slate-900">Elisabeth</p>
+                      <p className="text-slate-600">Marketing Specialist</p>
+                    </div>
+                  </figcaption>
+                </figure>
+              </li>
+
+              {/* Testimonial 6 */}
+              <li>
+                <figure className="relative rounded-2xl bg-white p-6 shadow-xl shadow-slate-900/10">
+                  <blockquote className="mt-10">
+                    <p className="text-lg text-slate-900">
+                      “Volt Bank’s budgeting features have made managing my expenses so much easier. It’s never been simpler to save and invest.”
+                    </p>
+                  </blockquote>
+                  <figcaption className="mt-6 flex items-center gap-x-4">
+                    <div className="flex-shrink-0">
+                      <img
+                        className="h-14 w-14 rounded-full"
+                        src="/icon11.jpeg"
+                        alt="Customer 6"
+                      />
+                    </div>
+                    <div className="space-y-1.5 font-medium">
+                      <p className="text-slate-900">Vadim  Tudor</p>
+                      <p className="text-slate-600">Financial Advisor</p>
+                    </div>
+                  </figcaption>
+                </figure>
+              </li>
             </ul>
           </div>
         </section>
-        <Footer />
       </div>
+
+      <Footer />
     </>
   );
 }
